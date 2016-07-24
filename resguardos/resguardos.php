@@ -71,7 +71,7 @@ echo date("d-m-Y ", $time);
 	<form id="guardarDatos">
 	 <div class="ui-widget" >
   Num.Empleado:    <input id="Empleado"> 
-  <input type="hidden" id="numEmpleado" name="empleado"> 
+  <input type="hidden" id="numEmpleado" name="Empleado"> 
     Nombre: <input id="Nombre" name="Nombre" readonly>
 	 Apellido Paterno: <input id="Ape_Paterno" name="Ape_Paterno" readonly>
 	  Apellido Materno: <input id="Ape_Materno" name="Ape_Materno" readonly>
@@ -97,7 +97,7 @@ echo date("d-m-Y ", $time);
 
 		Observaciones: <br>
 		
-       <textarea class="form-control" name="observaciones" rows="5" id="observaciones"></textarea>
+       <textarea class="form-control" name="Observaciones" rows="5" id="observaciones"></textarea>
        <br>
 	   
 	   <div>
@@ -202,7 +202,7 @@ function getJson(){
         for (var j = 0; j < td.length; j++){
 			//jObject[""+i] = td[j].innerHTML;
 			if(j==0){
-				jObject[""+i] = td[j].innerHTML;
+				jObject[""+i-1] = td[j].innerHTML;
 			}
         }
     }
