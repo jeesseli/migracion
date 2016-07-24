@@ -27,7 +27,8 @@ $(function() {
                 minLength: 2,
                 select: function(event, ui) {
 					event.preventDefault();
-                    $('#Empleado').val(ui.item.Empleado);
+                    $('#Empleado').val(ui.item.Empleado);                    
+                    $('#numEmpleado').val(ui.item.Empleado);
 					$('#Nombre').val(ui.item.Nombre);
 					$('#Ape_Paterno').val(ui.item.Ape_Paterno);
 					$('#Ape_Materno').val(ui.item.Ape_Materno);
@@ -44,7 +45,7 @@ $(function() {
 
     </head>
     <body>
-	<form id="guardarDatos">
+	
 	<div align="center">
 <IMG src="../img/Logo1.png "><IMG SRC="../img/Logo2.png"> 
 </div>
@@ -67,9 +68,10 @@ echo date("d-m-Y ", $time);
 ?></div></div>
 <strong>
 	  <p>	 
-	
+	<form id="guardarDatos">
 	 <div class="ui-widget" >
-  Num.Empleado:    <input id="Empleado" name="empleado"> 
+  Num.Empleado:    <input id="Empleado"> 
+  <input type="hidden" id="numEmpleado" name="empleado"> 
     Nombre: <input id="Nombre" name="Nombre" readonly>
 	 Apellido Paterno: <input id="Ape_Paterno" name="Ape_Paterno" readonly>
 	  Apellido Materno: <input id="Ape_Materno" name="Ape_Materno" readonly>
@@ -94,8 +96,9 @@ echo date("d-m-Y ", $time);
 </strong><br>
 
 		Observaciones: <br>
-		<TEXTAREA class="form-control" NAME="observaciones" rows="3"> 
-       </TEXTAREA> <br>
+		
+       <textarea class="form-control" name="observaciones" rows="5" id="observaciones"></textarea>
+       <br>
 	   
 	   <div>
 		   <table id="myTable" class="table table-bordered">
@@ -163,29 +166,35 @@ function eliminar() {
 }
 $( "#guardarDatos" ).submit(function( event ) {
 		var parametros = $(this).serialize();
-		console.log(parametros);		
-		var tabla =getJson();
-		console.log(tabla);		
-			 $.ajax({
-					type: "POST",
-					url: "agregar.php",
-					data: {empleado: parametros, tabla: tabla},
-					 beforeSend: function(objeto){
-						//$("#datos_ajax_register").html("Mensaje: Cargando...");
-					  },
-					success: function(datos){					
-						//$("#datos_ajax_register").html(datos);
-						//$('#dataRegister').modal('hide');	
-						//load(1);
-				  }
-			});
-		  event.preventDefault();
+		//console.log(parametros);		
+		var tablaData =getJson();
+		//console.log(tabla);	
+		if (document.getElementById("numEmpleado").value.length == 0){
+			alert('Necesita agregar un Empleado');
+		}
+		//console.log(tabla.value);
+		if(!jQuery.isEmptyObject(tablaData)){
+			$.ajax({
+			    type: 'POST',
+			    url:  'agregarRegistro.php',
+			    data: {usuario: parametros ,tabla: tablaData},
+			    success:  function(data){
+			        //alert("---"+data);
+			        //console.log(data);
+			        alert("Settings has been updated successfully.");			        
+			    }
+			});		
+			  
+		}else{
+			alert('La tabla!!!');
+		}
+		event.preventDefault();
 });
 function getJson(){
 	//console.log('holi');
     var table = document.getElementById("myTable");
     var tr = table.getElementsByTagName("tr");
-    var jObject = {}
+    var jObject = {};
     for (var i = 0; i < tr.length; i++){
         var td = tr[i].getElementsByTagName("td");        
         for (var j = 0; j < td.length; j++){
@@ -195,7 +204,7 @@ function getJson(){
 			}
         }
     }
-	//console.log(jObject);
+	console.log(jObject);
     return jObject;	
 }
 </script>

@@ -1,5 +1,9 @@
 <?php
 
+//$_POST['empleado']
+$tableData = $_POST['tabla'];
+$tableData = json_decode($tableData,TRUE);
+echo $tableData[1];
 /*$tableData = stripcslashes($_POST['tabla']);
 
 // Decode the JSON array
