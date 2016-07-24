@@ -76,7 +76,7 @@ echo date("d-m-Y ", $time);
 	 Apellido Paterno: <input id="Ape_Paterno" name="Ape_Paterno" readonly>
 	  Apellido Materno: <input id="Ape_Materno" name="Ape_Materno" readonly>
 	   Sitio: <input id="ID_Sitio" name="ID_Sitio" readonly>
-  <input type="hidden" id="ID_Personal">
+  <input type="hidden" name ="ID_Personal" id="ID_Personal">
 </div>	 
 </p>
 </strong><br>
@@ -165,7 +165,9 @@ function eliminar() {
         table.removeChild(tr);
 }
 $( "#guardarDatos" ).submit(function( event ) {
-		var parametros = $(this).serialize();
+		//var parametros = $(this).serialize();
+		var $form = $(this);
+		var parametros = getFormData($form);
 		//console.log(parametros);		
 		var tablaData =getJson();
 		//console.log(tabla);	
@@ -177,7 +179,7 @@ $( "#guardarDatos" ).submit(function( event ) {
 			$.ajax({
 			    type: 'POST',
 			    url:  'agregarRegistro.php',
-			    data: {usuario: parametros ,tabla: tablaData},
+			    data: {usuario : parametros,tabla: tablaData},
 			    success:  function(data){
 			        //alert("---"+data);
 			        //console.log(data);
@@ -206,6 +208,16 @@ function getJson(){
     }
 	console.log(jObject);
     return jObject;	
+}
+function getFormData ( $form ){ 
+    var unindexed_array = $form . serializeArray (); 
+    var indexed_array =  {}; 
+
+    $ . map ( unindexed_array ,  function ( n , i ){ 
+        indexed_array [ n [ 'name' ]]  = n [ 'value' ]; 
+    }); 
+
+    return indexed_array ; 
 }
 </script>
 </html>
