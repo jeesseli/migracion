@@ -35,6 +35,7 @@ $con=@mysqli_connect('localhost', 'root', '', 'migracion');
 			echo "\n elementos en la tabla--".count($table);
 			for ($i=0; $i < count($table); $i++) { 
 				mysqli_query($con,"INSERT INTO resguardo_invpcs (id_resguardo,id_inv_pcs) VALUES(".$id_Resguardo.",".$table[$i].")");
+				mysqli_query($con,"UPDATE inv_pcs SET resguardo ='SI' WHERE ID_Equipo=".$table[$i]);
 			}
 			echo "\n Exito x2";
 			//$sql2="INSERT INTO resguardo_invpcs (id_resguardo,id_inv_pcs) VALUES(".$id_Resguardo.",".$.")";
