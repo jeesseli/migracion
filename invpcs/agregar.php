@@ -12,18 +12,20 @@ ini_set('display_errors', '1');
         die("Connect failed: ".mysqli_connect_errno()." : ". mysqli_connect_error());
     }
 	/*Inicia validacion del lado del servidor*/
-	 if (empty($_POST['descripcion'])){
+	 //if (empty($_POST['descripcion'])){
+   if(1==1){
+   /*if (empty($_REQUEST['descripcion'])){
 			$errors[] = "Descripcion vacío";
 		} else if (empty($_POST['numinv'])){
 			$errors[] = "Numero de Inventario vacío";
 		}   else if (
 			!empty($_POST['numinv'])
-			
-		){
+
+		){*/
 			session_start();
 
 		// escaping, additionally removing everything that could be (html/javascript-) code
-		//$ID_Equipo=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));	
+		//$ID_Equipo=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
 		$descripcion=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
 		$marca=mysqli_real_escape_string($con,(strip_tags($_POST["marca"],ENT_QUOTES)));
 		$modelo=mysqli_real_escape_string($con,(strip_tags($_POST["modelo"],ENT_QUOTES)));
@@ -46,25 +48,40 @@ ini_set('display_errors', '1');
 		$sitio=(int)($_POST['sitio']);
 		$propietario=(int)($_POST['propietario']);
 		$tipo_equipo=(int)($_POST['tipo_equipo']);
-		
+
+    $ruta_provisional = $_FILES["imagen"]["tmp_name"];
+    $hora = time();
+    $destino="imagenes/".$modelo.'_'.$hora;
+    copy($ruta_provisional,$destino);
+    /*
+    $nom=$_REQUEST["txtnom"];
+$u=$_POST["user"];
+$foto=$_FILES["foto"]["name"];
+$ruta=$_FILES["foto"]["tmp_name"];
+$destino="fotos/".$foto;
+copy($ruta,$destino);
+mysql_query("insert into foto (nombre,foto,usuario) values('$nom','$destino','$u')");
+header("Location: index.php");
+    */
+
 		// esto sera para obtener la descripcion del propietario
 		$propietario_des='';
-				
+
 		$consult="select * from propietarios where ID_Propietario=".$propietario;
-		$result = $con->query($consult); //usamos la conexion para dar un resultado a la variable	 
-		if ($result->num_rows > 0){ //si la variable tiene al menos 1 fila entonces seguimos con el codigo				
+		$result = $con->query($consult); //usamos la conexion para dar un resultado a la variable
+		if ($result->num_rows > 0){ //si la variable tiene al menos 1 fila entonces seguimos con el codigo
 			while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 				$propietario_des=$row['Descripcion_propietario'];
 			}
 		}
 		////
-		
+
 		$sql="INSERT INTO inv_pcs (descripcion, equipo_marca,equipo_modelo, equipo_serie,Equipo_numinv,monitor_marca,monitor_modelo,monitor_serie,
-		teclado_marca,teclado_modelo,teclado_serie,mouse_marca,mouse_modelo,mouse_serie,ups_marca,ups_modelo,ups_serie,resguardo,ID_Sitio,ID_Propietario,Propietario,Empleado,ID_Tipo_Equipo) VALUES
+		teclado_marca,teclado_modelo,teclado_serie,mouse_marca,mouse_modelo,mouse_serie,ups_marca,ups_modelo,ups_serie,resguardo,ID_Sitio,ID_Propietario,Propietario,Empleado,ID_Tipo_Equipo,imagen) VALUES
 		('".$descripcion."','".$marca."','".$modelo."','".$serie."','".$numinv."','".$monitor_marca."','".$monitor_mod."',
 		'".$monitor_serie."','".$teclado_marca."','".$teclado_mod."','".$teclado_serie."','".$mouse_marca."','".$mouse_mod."',
 		'".$mouse_serie."', '".$ups_marca."','".$ups_mod."','".$ups_serie."','".$res."',".$sitio.",".$propietario.",'".$propietario_des."',
-		".$empleado.",".$tipo_equipo.")";
+		".$empleado.",".$tipo_equipo.",'".$destino."')";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
 				$messages[] = "Los datos han sido guardados satisfactoriamente.";
@@ -74,13 +91,13 @@ ini_set('display_errors', '1');
 		} else {
 			$errors []= "Error desconocido.";
 		}
-		
+
 		if (isset($errors)){
-			
+
 			?>
 			<div class="alert alert-danger" role="alert">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Error!</strong> 
+					<strong>Error!</strong>
 					<?php
 						foreach ($errors as $error) {
 								echo $error;
@@ -90,7 +107,7 @@ ini_set('display_errors', '1');
 			<?php
 			}
 			if (isset($messages)){
-				
+
 				?>
 				<div class="alert alert-success" role="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
