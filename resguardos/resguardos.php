@@ -119,6 +119,7 @@ echo date("d-m-Y ", $time);
  <button type="button" id="mas" name="mas" class="btn btn-success" onclick="getJson()">GUARDAR</button>
   <input type="reset" id="cancelar" value="CANCELAR" name="cancelar">
   <input type="button" onClick="window.location='MenuCatalogo.php'" id="regresar" value="REGRESAR" name="regresar">
+ <input type="button" onClick="window.location='pdf.php'" id="pdf" value="pdf" name="pdf">
 
   </p>
 
