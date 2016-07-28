@@ -11,12 +11,12 @@ $con=@mysqli_connect('localhost', 'root', '', 'migracion');
     if (@mysqli_connect_errno()) {
         die("Connect failed: ".mysqli_connect_errno()." : ". mysqli_connect_error());
     }	
-	$empleado =(int)($_POST['usuario'][Empleado]);
-	$nombre =mysqli_real_escape_string($con,(strip_tags($_POST['usuario'][Nombre],ENT_QUOTES)));
-	$ape_pat =mysqli_real_escape_string($con,(strip_tags($_POST['usuario'][Ape_Paterno],ENT_QUOTES)));
-	$ape_mat =mysqli_real_escape_string($con,(strip_tags($_POST['usuario'][Ape_Materno],ENT_QUOTES)));
-	$sitio =(int)($_POST['usuario'][ID_Sitio]);	
-	$observaciones =mysqli_real_escape_string($con,(strip_tags($_POST['usuario'][Observaciones],ENT_QUOTES)));	
+	$empleado =(int)($_POST['usuario']['Empleado']);
+	$nombre =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Nombre'],ENT_QUOTES)));
+	$ape_pat =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Ape_Paterno'],ENT_QUOTES)));
+	$ape_mat =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Ape_Materno'],ENT_QUOTES)));
+	$sitio =(int)($_POST['usuario']['ID_Sitio']);	
+	$observaciones =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Observaciones'],ENT_QUOTES)));	
 
 	$sql="INSERT INTO resguardo (Empleado, Nombre, Ape_Paterno, Ape_Materno, ID_Sitio, Observaciones) VALUES(
 	".$empleado.",
