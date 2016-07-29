@@ -5,7 +5,7 @@
         <title> Resguardos</title>
 		<link href="../js/bootstrap.min.css" rel="stylesheet">
        <link rel="stylesheet" href="../js/jquery-ui.css">
-  <script src="../js/jquery-1.10.2.js"></script>
+  <script src="../js/jquery-1.10.2.js"></script>    
   <script src="../js/jquery-ui.js"></script>
   <script type="text/javascript">
 $(function() {
@@ -39,13 +39,8 @@ $(function() {
 		});
 
 </script>
-
-
-
-
     </head>
     <body>
-	
 	<div align="center">
 <IMG src="../img/Logo1.png "><IMG SRC="../img/Logo2.png"> 
 </div>
@@ -67,7 +62,8 @@ $time = time();
 echo date("d-m-Y ", $time);
 ?></div></div>
 <strong>
-	  <p>	 
+	  <p>
+	  	 <div id = "alert_placeholder"></div>
 	<form id="guardarDatos">
 	 <div class="ui-widget" >
   Num.Empleado:    <input id="Empleado"> 
@@ -122,38 +118,44 @@ echo date("d-m-Y ", $time);
  <input type="button" onClick="window.location='pdf.php'" id="pdf" value="pdf" name="pdf">
 
   </p>
-
-	  
-	  
-    
-
 </div>
-
-
-    </body>
 	
 <script>
 function agregar() {
 	if(document.getElementById("ID_Equipo").value!=''){
-		var table = document.getElementById("myTable");
-		var row = table.insertRow();    
-		row.insertCell(0).innerHTML =document.getElementById("ID_Equipo").value;
-		row.insertCell(1).innerHTML = document.getElementById("Equipo_Serie").value;
-		row.insertCell(2).innerHTML = document.getElementById("Descripcion").value;
-		row.insertCell(3).innerHTML = document.getElementById("Equipo_Modelo").value;	
-		document.getElementById("ID_Equipo").value ='';
-		document.getElementById("Equipo_Serie").value ='';
-		document.getElementById("Descripcion").value ='';
-		document.getElementById("Equipo_Modelo").value ='';		
-		var campo3 = document.createElement("input");
-			campo3.type = "button";
-			campo3.value = "Borrar Fila";
-			campo3.onclick = function() {        
-				var fila = this.parentNode.parentNode;
-				var tbody = table.getElementsByTagName("tbody")[0];            
-				tbody.removeChild(fila);            
+		var datasTable =getJson();
+		//console.log(Object.keys(datasTable).length);
+		var id = document.getElementById("ID_Equipo").value;
+		var repetido=0;
+		for (var i = 0; i < Object.keys(datasTable).length; i++) {
+			if(id==datasTable[i]){
+				repetido++;
 			}
-		row.insertCell(4).appendChild(campo3);
+		}
+		if(repetido==0){
+			var table = document.getElementById("myTable");
+			var row = table.insertRow();    
+			row.insertCell(0).innerHTML = document.getElementById("ID_Equipo").value;
+			row.insertCell(1).innerHTML = document.getElementById("Equipo_Serie").value;
+			row.insertCell(2).innerHTML = document.getElementById("Descripcion").value;
+			row.insertCell(3).innerHTML = document.getElementById("Equipo_Modelo").value;	
+			document.getElementById("ID_Equipo").value ='';
+			document.getElementById("Equipo_Serie").value ='';
+			document.getElementById("Descripcion").value ='';
+			document.getElementById("Equipo_Modelo").value ='';		
+			var campo3 = document.createElement("input");
+				campo3.type = "button";
+				campo3.value = "Borrar Fila";
+				campo3.onclick = function() {        
+					var fila = this.parentNode.parentNode;
+					var tbody = table.getElementsByTagName("tbody")[0];            
+					tbody.removeChild(fila);            
+				}
+			row.insertCell(4).appendChild(campo3);
+		}else{
+			alert("No se puede agregar la misma pc a la tabla");
+			/*$('#alert_placeholder').html(' <div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><h4>Aviso!!!</h4> No hay datos para mostrar</div>');*/
+		}	
 	}else{
 		document.getElementById("Equipo_Serie").focus();
 	}
@@ -170,26 +172,27 @@ $( "#guardarDatos" ).submit(function( event ) {
 		var $form = $(this);
 		var parametros = getFormData($form);
 		//console.log(parametros);		
-		var tablaData =getJson();
+		var tablaData =getJson();		
 		//console.log(tabla);	
 		if (document.getElementById("numEmpleado").value.length == 0){
 			alert('Necesita agregar un Empleado');
 		}
 		//console.log(tabla.value);
-		if(!jQuery.isEmptyObject(tablaData)){
-			$.ajax({
-			    type: 'POST',
-			    url:  'agregarRegistro.php',
-			    data: {usuario : parametros,tabla: tablaData},
-			    success:  function(data){
-			        //alert("---"+data);
-			        //console.log(data);
-			        alert("Settings has been updated successfully.");			        
-			    }
-			});		
-			  
-		}else{
-			alert('La tabla!!!');
+		else{
+			if(!jQuery.isEmptyObject(tablaData)){
+				$.ajax({
+				    type: 'POST',
+				    url:  'agregarRegistro.php',
+				    data: {usuario : parametros,tabla: tablaData},
+				    success:  function(data){
+				        //alert("---"+data);console.log(data);
+				        alert("Resguardo almacenado");			        
+				    }
+				});		
+				  
+			}else{
+				alert('La tabla no puede estar vacia!');
+			}
 		}
 		event.preventDefault();
 });
@@ -208,6 +211,7 @@ function getJson(){
         }
     }
 	console.log(jObject);
+	// $total = count((array)$obj);	
     return jObject;	
 }
 function getFormData ( $form ){ 
@@ -217,8 +221,8 @@ function getFormData ( $form ){
     $ . map ( unindexed_array ,  function ( n , i ){ 
         indexed_array [ n [ 'name' ]]  = n [ 'value' ]; 
     }); 
-
     return indexed_array ; 
 }
 </script>
+</body>
 </html>

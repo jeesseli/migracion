@@ -91,7 +91,13 @@ $(document).ready(function(){
   });
 });
 </script>
-
+  <style>
+          .thumb {
+            height: 300px;
+            border: 1px solid #000;
+            margin: 10px 5px 0 0;
+          }
+        </style>
 <form id="guardarDatos" action="agregar.php" method="POST"  enctype="multipart/form-data">
 <div class="modal fade" id="dataRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
@@ -109,6 +115,7 @@ $(document).ready(function(){
       <div class="form-group">
             <label for="imagen" class="control-label">Imagen:</label>
             <input type="file" name="imagen" id="imagen">
+            <br><output id="list"></output>
       </div>
 		  <div class="form-group">
 			<label for="tipo_equipo" class="control-label">Tipo de Equipo:</label>
@@ -118,9 +125,9 @@ $(document).ready(function(){
 		 </div>
 		 <div class="form-group">
   <label for="res">Resguardo:</label>
-  <select NAME="res" class="form-control" id="res">
-    <option>Si</option>
+  <select NAME="res" class="form-control" id="res">  
     <option>No</option>
+    <option>Si</option>    
     </select>
 </div>
 		  <div class="form-group">
@@ -194,4 +201,29 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+<script>
+function archivo(evt) {
+  var files = evt.target.files; // FileList object
+
+  // Obtenemos la imagen del campo "file".
+  for (var i = 0, f; f = files[i]; i++) {
+    //Solo admitimos imágenes.
+    if (!f.type.match('image.*')) {
+        continue;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = (function(theFile) {
+        return function(e) {
+          // Insertamos la imagen
+         document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+        };
+    })(f);
+
+    reader.readAsDataURL(f);
+  }
+}
+document.getElementById('imagen').addEventListener('change', archivo, false);
+</script>
 </form>
