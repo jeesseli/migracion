@@ -11,7 +11,8 @@ ini_set('display_errors', '1');
         die("Connect failed: ".mysqli_connect_errno()." : ". mysqli_connect_error());
     }
 	/*Inicia validacion del lado del servidor*/
-	 if  (empty($_POST['descripcion'])){
+	 if  (1==1){
+   /*empty($_POST['descripcion'])){
 			$errors[] = "Descripcion vacío";
 		} else if (empty($_POST['equipo_marca'])){
 			$errors[] = "Marca vacío";
@@ -22,18 +23,18 @@ ini_set('display_errors', '1');
 		} else if (empty($_POST['numinv'])){
 			$errors[] = "Numero de Inventario vacío";
 		}   else if (
-			!empty($_POST['id']) && 
-			!empty($_POST['descripcion']) && 
+			!empty($_POST['id']) &&
+			!empty($_POST['descripcion']) &&
 			!empty($_POST['equipo_marca']) &&
 			!empty($_POST['equipo_modelo']) &&
 			!empty($_POST['equipo_serie']) &&
 			!empty($_POST['numinv'])
-			
-		){
+
+		){*/
 				session_start();
 
 		// escaping, additionally removing everything that could be (html/javascript-) code
-		//$ID_Equipo=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));	
+		//$ID_Equipo=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
 		$descripcion=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
 		$marca=mysqli_real_escape_string($con,(strip_tags($_POST["equipo_marca"],ENT_QUOTES)));
 		$modelo=mysqli_real_escape_string($con,(strip_tags($_POST["equipo_modelo"],ENT_QUOTES)));
@@ -52,33 +53,53 @@ ini_set('display_errors', '1');
 		$ups_marca=mysqli_real_escape_string($con,(strip_tags($_POST["ups_marca"],ENT_QUOTES)));
 		$ups_mod=mysqli_real_escape_string($con,(strip_tags($_POST["ups_mod"],ENT_QUOTES)));
 		$ups_serie=mysqli_real_escape_string($con,(strip_tags($_POST["ups_serie"],ENT_QUOTES)));
-		
-		
+
+    $imagen =mysqli_real_escape_string($con,(strip_tags($_POST["imagen_original"],ENT_QUOTES)));
+
+    //$archivo = $_FILES[$img]['name'];
+    $ruta_provisional = $_FILES['imagen_update']['tmp_name'];
+    $hora = time();
+    $destino="imagenes/".$modelo.'_'.$hora;
+    //copy($ruta_provisional,$destino);
+    //$archivo = $_FILES[$img]['name'];
+    //$prefijo = substr(md5(uniqid(rand())),0,6);
+    if (strlen($ruta_provisional)>0) {
+    // guardamos el archivo a la carpeta files
+        //$destino =  "files/".$prefijo."_".$archivo;
+        if (copy($ruta_provisional,$destino)) {
+          $messages []= "Archivo subido: <b></b>";
+          $imagen = $destino;
+        }else{
+            $errors[]  = "Error al subir el archivo 1";
+        }
+    }else{
+      $errors[] =   "Error al subir archivo 2";
+    }
+
 		$id=(int)($_POST['id']);
 		$sitio=(int)($_POST['sitio']);
-		$empleado=$_SESSION['usuario']['empleado'];		
-		$propietario=(int)($_POST['propietario']);		
-		$tipo_equipo=(int)($_POST['tipo_equipo']);		
+		$empleado=$_SESSION['usuario']['empleado'];
+		$propietario=(int)($_POST['propietario']);
+		$tipo_equipo=(int)($_POST['tipo_equipo']);
 		// esto sera para obtener la descripcion del propietario
 		$propietario_des='';
-				
+
 		$consult="select * from propietarios where ID_Propietario=".$propietario;
-		$result = $con->query($consult); //usamos la conexion para dar un resultado a la variable	 
-		if ($result->num_rows > 0){ //si la variable tiene al menos 1 fila entonces seguimos con el codigo				
+		$result = $con->query($consult); //usamos la conexion para dar un resultado a la variable
+		if ($result->num_rows > 0){ //si la variable tiene al menos 1 fila entonces seguimos con el codigo
 			while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 				$propietario_des=$row['Descripcion_propietario'];
 			}
-		}	
+		}
 		//////
-		
-		
+
 		$sql="UPDATE inv_pcs  SET  descripcion='".$descripcion."', equipo_marca='".$marca."',
 		equipo_modelo='".$modelo."', equipo_serie='".$serie."', equipo_numinv=".$numinv.", monitor_marca='".$monitor_marca."',
-		monitor_modelo='".$monitor_mod."', monitor_serie='".$monitor_serie."', teclado_marca='".$teclado_marca."', 
+		monitor_modelo='".$monitor_mod."', monitor_serie='".$monitor_serie."', teclado_marca='".$teclado_marca."',
 		teclado_modelo='".$teclado_mod."', teclado_serie='".$teclado_serie."', mouse_marca='".$mouse_marca."',
-		mouse_modelo='".$mouse_mod."', mouse_serie='".$mouse_serie."', ups_marca='".$ups_marca."', 
+		mouse_modelo='".$mouse_mod."', mouse_serie='".$mouse_serie."', ups_marca='".$ups_marca."',
 		ups_modelo='".$ups_mod."', ups_modelo='".$ups_mod."', ups_serie='".$ups_serie."', resguardo='".$resguardo."', empleado='".$empleado."',
-		ID_Sitio=".$sitio.",ID_Propietario=".$propietario.",Propietario='".$propietario_des."',ID_Tipo_Equipo=".$tipo_equipo."
+		ID_Sitio=".$sitio.",ID_Propietario=".$propietario.",Propietario='".$propietario_des."',ID_Tipo_Equipo=".$tipo_equipo.", imagen='".$imagen."'
 		WHERE ID_Equipo=".$id.";";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
@@ -90,13 +111,13 @@ ini_set('display_errors', '1');
 			$errors []= "Error desconocido.";
 		}
 
-		
+
 		if (isset($errors)){
-			
+
 			?>
 			<div class="alert alert-danger" role="alert">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Error!</strong> 
+					<strong>Error!</strong>
 					<?php
 						foreach ($errors as $error) {
 								echo $error;
@@ -106,7 +127,7 @@ ini_set('display_errors', '1');
 			<?php
 			}
 			if (isset($messages)){
-				
+
 				?>
 				<div class="alert alert-success" role="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -120,7 +141,7 @@ ini_set('display_errors', '1');
 				--></div>
 				<?php
 				/*if(sizeof($errors)==0){
-					header("Location: \SistemaDeInventarios\invpcs\inventario.php"); //redirecciona a la pagina.		
+					header("Location: \SistemaDeInventarios\invpcs\inventario.php"); //redirecciona a la pagina.
 				}*/
 			}
 

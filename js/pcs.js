@@ -37,11 +37,16 @@
 		  var umod = button.data('ups_modelo')
 		  var userie = button.data('ups_serie')
 		  var sitio = button.data('sitio')
+			var imagen = button.data('imagen')
+			console.log(imagen);
 		  var empleado = button.data('empleado') // Extraer la información de atributos de datos
 
 		  var modal = $(this)
 		  modal.find('.modal-title').text('Modificar pcs: '+descripcion)
 		  modal.find('.modal-body #id').val(id)
+			//$('#imagen').attr('src',imagen);
+			modal.find('.modal-body #imagen').attr('src',imagen)
+			modal.find('.modal-body #imagen_original').val(imagen)
 		  modal.find('.modal-body #descripcion').val(descripcion)
 		  modal.find('.modal-body #equipo_marca').val(marca)
 		  modal.find('.modal-body #equipo_modelo').val(modelo)
@@ -76,7 +81,7 @@
 
 		})
 
-	$( "#actualizarDatos" ).submit(function( event ) {
+/*	$( "#actualizarDatos" ).submit(function( event ) {
 		var parametros = $(this).serialize();
 			 $.ajax({
 					type: "POST",
@@ -97,7 +102,7 @@
 
 		  event.preventDefault();
 		});
-
+*/
 /*
 		$( "#guardarDatos" ).submit(function( event ) {
 		var parametros = $(this).serialize();

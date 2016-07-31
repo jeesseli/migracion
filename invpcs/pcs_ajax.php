@@ -1,5 +1,4 @@
-	
-			
+
 <?php
 
 error_reporting(E_ALL);
@@ -28,11 +27,13 @@ error_reporting(-1);
 		$reload = 'pcs.php';
 		//consulta principal para recuperar los datos
 		$query = mysqli_query($con,"Select * from inv_pcs LIMIT $offset,$per_page");
-		
+
 		if ($numrows>0){
 			?>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
   <script type="text/javascript">
         /*$(document).ready(function () {
             (function ($) {
@@ -46,10 +47,10 @@ error_reporting(-1);
             }(jQuery));
         });
 		*/
-		
-		
-		$(document).ready(function(){                 
-			 function search(){ 
+
+
+		$(document).ready(function(){
+			 function search(){
 				  var term=$("#filtrar").val();
 				  if(term!=""){
 					//$("#result").html("<img alt="ajax search" src='ajax-loader.gif'/>");
@@ -60,7 +61,7 @@ error_reporting(-1);
 						data: {term: term},
 						success:function(data){
 							/*var table = document.getElementById("myTable");
-							var row = table.insertRow();    
+							var row = table.insertRow();
 							row.insertCell(0).innerHTML =document.getElementById("ID_Equipo").value;*/
 							$("table#tabla_pcs  tbody").html(data);
 							//table#resultTable tbody
@@ -68,24 +69,25 @@ error_reporting(-1);
 							//$("#search").val("");
 						 }
 					  });
-				  }                                           
-			 }                    
+				  }
+			 }
 			  $('#filtrar').keyup(function(e) {
 				 if(e.keyCode == 13) {
 					search();
 				  }
 			  });
-		});		
-      </script>  	  
+		});
+      </script>
 <div class="input-group">
   <span class="input-group-addon">Buscar</span>
   <input id="filtrar" type="text" class="form-control" placeholder="Buscar">
-</div>	  
+</div>
 		<table class="table table-bordered" id="tabla_pcs">
-		
+
 			  <thead>
 				<tr>
-				<th></th>			
+				<th></th>
+          <th>Imagen</th>
 					<th>Serie</th>
 				  <th>Descripcion</th>
 				  <th>Tipo Equipo</th>
@@ -108,27 +110,27 @@ error_reporting(-1);
 				  <th>ID Propietario</th>
 				  <th>Descripcion Propietario</th>
 				  <th>Empleado</th>
-				  
-				  
+
+
 				</tr>
 			</thead>
 			<tbody class="buscar">
 			<?php while($row = mysqli_fetch_array($query)){?>
 			<tr>
-				<td>	 	
+				<td>
 				<?php $muestra= "show('".$row['ID_Equipo']."')";?>
-                 <input type="checkbox" class="select-row"  onclick="<?php echo $muestra;?>"> 
-							 				
+                 <input type="checkbox" class="select-row"  onclick="<?php echo $muestra;?>">
+
 				<div id="<?php echo $row['ID_Equipo'];?>" style="display: none;">
-					<?php echo $row['ID_Equipo'];?>								
-					<button type="button" class="btn-primary" data-toggle="modal" 
-					data-target="#dataUpdate" 
+					<?php echo $row['ID_Equipo'];?>
+					<button type="button" class="btn-primary" data-toggle="modal"
+					data-target="#dataUpdate"
 					data-id="<?php echo $row['ID_Equipo']?>"
 					data-tipo-equipo="<?php echo $row['ID_Tipo_Equipo']?>"
-					data-equipo_serie="<?php echo $row['Equipo_Serie']?>" 
+					data-equipo_serie="<?php echo $row['Equipo_Serie']?>"
 					data-descripcion="<?php echo $row['Descripcion']?>"
 					data-equipo_marca="<?php echo $row['Equipo_Marca']?>"
-					data-equipo_modelo="<?php echo $row['Equipo_Modelo']?>"					
+					data-equipo_modelo="<?php echo $row['Equipo_Modelo']?>"
 					data-numinv="<?php echo $row['Equipo_numinv']?>"
 					data-monitor_marca="<?php echo $row['Monitor_Marca']?>"
 					data-monitor_modelo="<?php echo $row['Monitor_Modelo']?>"
@@ -144,21 +146,32 @@ error_reporting(-1);
 					data-ups_serie="<?php echo $row['Ups_Serie']?>"
 					data-resguardo="<?php echo $row['resguardo']?>"
 					data-sitio="<?php echo $row['ID_Sitio']?>"
-					data-propietario="<?php echo $row['ID_Propietario']?>"					
+					data-propietario="<?php echo $row['ID_Propietario']?>"
+					data-imagen="<?php echo $row['imagen']?>"
 					data-empleado="<?php echo $row['Empleado']?> " >
 					<i class='glyphicon glyphicon-edit'></i> Modificar</button>
-					<button type="button" class="btn btn-danger" 
-					data-toggle="modal" 
+					<button type="button" class="btn btn-danger"
+					data-toggle="modal"
 					data-target="#dataDelete"
 					data-id="<?php echo $row['ID_Equipo']?>"  ><i class='glyphicon glyphicon-trash'></i> Eliminar</button></div>
-				  </td>	
-				 			 	
-				
+				  </td>
+					<td>
+						<?php
+            if(strlen($row['imagen'])>0){
+						        echo'<a href="'.$row['imagen'].'" rel="lightbox['.$row['Equipo_Modelo'].']" data-lightbox="roadtrip"><img src="'.$row['imagen'].'" width="100px" height="100px" alt="'.$row['Equipo_Modelo'].'"></a></td>';
+            }else{
+              echo "Sin imagen";
+            }
+						?>
+
+					</td>
+
+
 				<td><?php echo $row['Equipo_Serie'];?></td>
 				<td><?php echo $row['Descripcion'];?></td>
 					<td><?php echo $row['ID_Tipo_Equipo'];?></td>
 					<td><?php echo $row['Equipo_Marca'];?></td>
-					<td><?php echo $row['Equipo_Modelo'];?></td>					
+					<td><?php echo $row['Equipo_Modelo'];?></td>
 					<td><?php echo $row['Equipo_numinv'];?></td>
 					<td><?php echo $row['Monitor_Marca'];?></td>
 					<td><?php echo $row['Monitor_Modelo'];?></td>
@@ -176,12 +189,14 @@ error_reporting(-1);
 					<td><?php echo $row['ID_Propietario'];?></td>
 					<td><?php echo $row['Propietario'];?></td>
 					<td><?php echo $row['Empleado'];?></td>
+
 				</tr>
 				<?php
-			}			
+			}
 			?>
 			</tbody>
 		</table>
+
 		<script type="text/javascript">
 			function show(bloq) {
 			  obj = document.getElementById(bloq);
@@ -191,9 +206,9 @@ error_reporting(-1);
 		<div class="table-pagination pull-right">
 			<?php echo paginate($reload, $page, $total_pages, $adjacents);?>
 		</div>
-		
+
 			<?php
-			
+
 		} else {
 			?>
 			<div class="alert alert-warning alert-dismissable">
