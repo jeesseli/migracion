@@ -16,6 +16,25 @@
 			}
 		})
 	}	
+	
+	
+		$('#dataUpdate').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Botón que activó el modal
+  var id = button.data('id') 		
+		var estado = button.data('estado')
+		
+				
+		  var modal = $(this)
+		  modal.find('.modal-title').text('Modificar Resguardo: ')
+		  modal.find('.modal-body #id').val(id)
+		  modal.find('.modal-body #estado').val(estado)
+
+		  
+		 $('.alert').hide();//Oculto alert
+		 					//.setTimeout('close()',60);
+
+		})
+		
 		 $('#dataDelete').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Botón que activó el modal
 		  var id = button.data('id') // Extraer la información de atributos de datos
@@ -23,6 +42,28 @@
 		  modal.find('.modal-content #id_resguardos').val(id)
 		
 		})
+			$( "#actualizarDatos" ).submit(function( event ) {
+		var parametros = $(this).serialize();
+			 $.ajax({
+					type: "POST",
+					url: "modificar.php",
+					data: parametros,
+					 beforeSend: function(objeto){
+						$("#datos_ajax").html("Mensaje: Cargando...");
+					  },
+					success: function(datos){
+					$("#datos_ajax").html(datos);
+					//$('#dataUpdate').modal('hide');						
+					//.setTimeout('close()',60);
+					
+		
+					load(1);
+					}
+			});
+			
+		  event.preventDefault();
+		});
+		 
 		$( "#eliminarDatos" ).submit(function( event ) {
 		var parametros = $(this).serialize();
 			 $.ajax({

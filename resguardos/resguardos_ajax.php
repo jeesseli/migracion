@@ -23,52 +23,96 @@ ini_set('display_errors', '1');
 		$count_query   = mysqli_query($con,"SELECT count(*) AS numrows FROM resguardo ");
 		if ($row= mysqli_fetch_array($count_query)){$numrows = $row['numrows'];}
 		$total_pages = ceil($numrows/$per_page);
-		$reload = 'resguardos.php';
+		$reload = 'resguardoC.php';
 		//consulta principal para recuperar los datos
 			$query = mysqli_query($con,"Select * from resguardo LIMIT $offset,$per_page");
-
-
-
+		
+		
+		
 		if ($numrows>0){
 			?>
-	<div class="input-group">
+			<script type="text/javascript">
+			$(document).ready(function(){                 
+			 function search(){ 
+				  var term=$("#filtrar").val();
+				  if(term!=""){
+					//$("#result").html("<img alt="ajax search" src='ajax-loader.gif'/>");
+					 $.ajax({
+						type:"post",
+						url:"busqueda.php",
+						//data:"term="+term,
+						data: {term: term},
+						success:function(data){
+							/*var table = document.getElementById("myTable");
+							var row = table.insertRow();    
+							row.insertCell(0).innerHTML =document.getElementById("ID_Equipo").value;*/
+							$("table#tabla_tel  tbody").html(data);
+							//table#resultTable tbody
+							//$("#result").html(data);
+							//$("#search").val("");
+						 }
+					  });
+				  }                                           
+			 }                    
+			  $('#filtrar').keyup(function(e) {
+				 if(e.keyCode == 13) {
+					search();
+				  }
+			  });
+		});		
+      </script>  	 
+<div class="input-group">
   <span class="input-group-addon">Buscar</span>
   <input id="filtrar" type="text" class="form-control" placeholder="Buscar">
-</div>
-
-		<table class="table table-bordered" >
-
+</div>			
+		<table class="table table-bordered" id="tabla_tel">
+		
 			  <thead>
 				<tr>
-				<th></th>
+				<th></th>			
 				  <th>Fecha</th>
+				   <th>Estado</th>
 				  <th>Empleado</th>
-				  <th>Delegacion</th>
-				  <th>Nombre<th>
-				   <th>Apellido Paterno<th>
-				    <th>Apellido Materno<th>
-				  <th>Descripcion</th>
-				  <th>Serie</th>
-				  <th>Modelo</th>
-				  <th>Observaciones</th>
-				  <th>Empleado</th>
-
-
-				</tr>
+				  <th>Nombre</th>
+				  <th>Apellido Paterno</th>
+				  <th>Apellido Materno</th>
+				  <th>Sitio</th>
+				  <th>Observaciones</th>  
+				  				</tr>
 			</thead>
-		<tbody>
+		<tbody class="buscar">
 			<?php while($row = mysqli_fetch_array($query)){?>
 			<tr>
-				<td>
+				<td>	 	
 				<?php $muestra= "show('".$row['id_resguardos']."')";?>
-                 <input type="checkbox" class="select-row"  onclick="<?php echo $muestra;?>">
-
+                 <input type="checkbox" class="select-row"  onclick="<?php echo $muestra;?>"> 
+							 				
 				<div id="<?php echo $row['id_resguardos'];?>" style="display: none;">
-					<?php echo $row['id_resguardos'];?>
-
+				<?php echo $row['id_resguardos'];?>								
+					<button type="button" class="btn-primary" data-toggle="modal" 
+					data-target="#dataUpdate" 
+					data-id="<?php echo $row['id_resguardos']?>"
+					data-estado="<?php echo $row['Estado']?> " >
+					<i class='glyphicon glyphicon-edit'></i> Modificar</button>
+				
+					<button type="button" class="btn btn-danger" 
+					data-toggle="modal" 
+					data-target="#dataDelete"
+					data-id="<?php echo $row['id_resguardos']?>"  ><i class='glyphicon glyphicon-trash'></i> Eliminar</button></div>
+				  
+				    <td><?php echo $row['Fecha'];?></td>
+				 	<td><?php echo$row['Estado'];?></td>
+					<td><?php echo$row['Empleado'];?></td>
+					<td><?php echo $row['Nombre']?></td>
+					<td><?php echo $row['Ape_Paterno'];?></td>
+					<td><?php echo $row['Ape_Materno'];?></td>
+					<td><?php echo $row['ID_Sitio'];?></td>
+					<td><?php echo $row['Observaciones'];?></td>
+				
+				
 				</tr>
 				<?php
-			}
+			}			
 			?>
 			</tbody>
 		</table>
@@ -81,9 +125,9 @@ ini_set('display_errors', '1');
 		<div class="table-pagination pull-right">
 			<?php echo paginate($reload, $page, $total_pages, $adjacents);?>
 		</div>
-
+		
 			<?php
-
+			
 		} else {
 			?>
 			<div class="alert alert-warning alert-dismissable">

@@ -15,6 +15,7 @@
 	
 <img class="img-responsive" src="../img/b.png"  width="100%" height="100%" > 
   <?php include ("modal_eliminar.php");?>
+    <?php include ("modal_modificar.php");?>
   <div>
  <h3 class='col-xs-20'>
 	<?php 

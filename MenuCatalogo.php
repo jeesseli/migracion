@@ -65,7 +65,7 @@ echo $_SESSION['usuario']['nombre']. "";
 							</a>
 						</li>
 						<li>
-							<a href="resguardos/consulta.php">
+							<a href="resguardos/resguardosC.php">
 							<span class="icon">
 							<i aria-hidden="true" class="icon_box-checked"></i>
 							</span>
