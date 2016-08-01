@@ -1,4 +1,5 @@
 <?php
+$id_resguardo= $_REQUEST['resguardo'];
 require('../fpdf/fpdf.php');
 
 $con=@mysqli_connect('localhost', 'root', '', 'migracion');
@@ -8,11 +9,11 @@ if(!$con){
 if (@mysqli_connect_errno()) {
     die("Connect failed: ".mysqli_connect_errno()." : ". mysqli_connect_error());
 }
-//$id_resguardo= $_POST["resguardo"];
-//echo $id_resguardo;
-if ($con){
-  $sql=mysqli_query($con,"Select * from resguardo Where id_resguardos = 2");
-  $res_pcs=mysqli_query($con,"SELECT * FROM  resguardo_invpcs  Where id_resguardo= 2");
+
+//echo "-> ".$id_resguardo;
+if ($con ){
+  $sql=mysqli_query($con,"Select * from resguardo Where id_resguardos =".$id_resguardo);
+  $res_pcs=mysqli_query($con,"SELECT resguardo_invpcs. * , inv_pcs . * FROM resguardo_invpcs LEFT JOIN inv_pcs ON resguardo_invpcs.id_inv_pcs = inv_pcs.ID_Equipo WHERE resguardo_invpcs.id_resguardo =".$id_resguardo);
   class PDF extends FPDF
   {
   // Cabecera de p�gina
@@ -39,7 +40,7 @@ if ($con){
      //$fecha= 'Fecha : '.date("l, d-m-Y (H:i:s)", $miFecha);
      $fecha ='Fecha : '.date("d-m-Y (H:i)", $time);
      $this->Cell(40,50,'SALIDA DE BIENES INFORMATICOS EN PRESTAMO',0,0,'C');
-     $this->Cell(65,60,$fecha,0,0,'C');
+     $this->Cell(65,65,$fecha,0,0,'C');
 
 
       $this->Ln(40);
@@ -67,29 +68,46 @@ if ($con){
       $pdf->Cell(0,5,'Imprimiendo l�nea n�mero '.$i,0,1);*/
   //echo "holi";
   $fila=70;
+  $pdf->Text(25,60,('Descripcion'),0,'C');
+  $pdf->Text(65,60,('Equipo Serie'),0,'C', 0);
+  $pdf->Text(110,60,('Equipo Modelo'),0,'C', 0);
       while($row = mysqli_fetch_array($res_pcs)){
         /*Nombre
         ID_Sitio
         Observaciones*/
         //$pdf->Cell(0,0,$row['Nombre'].' ',0,1);
-        $pdf->Text(15,$fila,($row['Nombre']),0,'C', 0);
-        $pdf->Text(30,$fila,($row['ID_Sitio']),0,'C', 0);
-        echo $row['Nombre'];
+        $pdf->Text(25,$fila,($row['Descripcion']),0,'C', 0);
+        $pdf->Text(65,$fila,($row['Equipo_Serie']),0,'C', 0);
+        $pdf->Text(110,$fila,($row['Equipo_Modelo']),0,'C', 0);
+        //echo $row['Nombre'];
         //$pdf->Cell(30,2,$row['ID_Sitio'],0,1);
         //$pdf->Cell(0,0,$row['Ape_Paterno'],0,1);
-        $fila=$fila+5;
+        $fila=$fila+7;
         }
+        $pdf->Text(25,180,('Observaciones : '),0,'C');
+        $ob="";
+        while($row2 = mysqli_fetch_array($sql)){
 
-  $pdf->SetXY(20, 200);
-  $pdf->Text(24,200,('NOMBRE Y FIRMA DE QUIEN'),0,'C', 0);
+          //$n_observacion =wordwrap($text, 20, "<br />\n");
+          //$pdf->MultiCell(177,6,'nnnn',0,'J');
+          $ob=$row2['Observaciones'];
+          //$pdf->Text(25,190,($row2['Observaciones']),0,'C', 0);
+        }
+        $y = $pdf->GetY();
+        $pdf->SetXY(20,190);
+        $pdf->MultiCell(177,6,$ob,0,'J');
+        $pdf->SetXY(20,$y);
+
+  $pdf->SetXY(20, 220);
+  $pdf->Text(24,220,('NOMBRE Y FIRMA DE QUIEN'),0,'C', 0);
   $pdf->Cell(10, 8, 'ENTREGA EL EQUIPO EN PRESTAMO', 0, 'L');
-  $pdf->Line(15, 214, 100, 214);
+  $pdf->Line(15, 234, 100, 234);
 
-  $pdf->SetXY(125, 200);
-  $pdf->Text(130,200,('NOMBRE Y FIRMA DE QUIEN'),0,'C', 0);
+  $pdf->SetXY(125, 220);
+  $pdf->Text(130,220,('NOMBRE Y FIRMA DE QUIEN'),0,'C', 0);
   $pdf->Cell(10, 8, ('RECIBE EL EQUIPO EN PRESTAMO'), 0, 'L');
-  $pdf->Line(120, 214, 200, 214);
-  //$pdf->Output();
+  $pdf->Line(120, 234, 200, 234);
+  $pdf->Output();
 }
 else {
   echo "Error en la conexion, intentelo mas tarde.";
