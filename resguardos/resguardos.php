@@ -5,7 +5,7 @@
         <title> Resguardos</title>
 		<link href="../js/bootstrap.min.css" rel="stylesheet">
        <link rel="stylesheet" href="../js/jquery-ui.css">
-  <script src="../js/jquery-1.10.2.js"></script>    
+  <script src="../js/jquery-1.10.2.js"></script>
   <script src="../js/jquery-ui.js"></script>
   <script type="text/javascript">
 $(function() {
@@ -27,7 +27,7 @@ $(function() {
                 minLength: 2,
                 select: function(event, ui) {
 					event.preventDefault();
-                    $('#Empleado').val(ui.item.Empleado);                    
+                    $('#Empleado').val(ui.item.Empleado);
                     $('#numEmpleado').val(ui.item.Empleado);
 					$('#Nombre').val(ui.item.Nombre);
 					$('#Ape_Paterno').val(ui.item.Ape_Paterno);
@@ -42,7 +42,7 @@ $(function() {
     </head>
     <body>
 	<div align="center">
-<IMG src="../img/Logo1.png "><IMG SRC="../img/Logo2.png"> 
+<IMG src="../img/Logo1.png "><IMG SRC="../img/Logo2.png">
 </div>
 <h3>
 <p class="text-center"  aria-labelledby="exampleModalLabel">
@@ -50,14 +50,14 @@ $(function() {
 	INSTITUTO NACIONAL DE MIGRACIÓN <br>DELEGACIÓN REGIONAL EN QUINTANA ROO<br>
 	DEPARTAMENTO DE INFORMATICA
 
-	
+
 	</strong>
 </p>
 </h3>
 <h5><p class="text-center"><strong>SALIDA DE BIENES INFORMATICOS EN PRESTAMO<br></strong></p></h5>
 <div class="container">
-<div class="panel panel-success"> 
-      <div class="panel-heading">BIENES INFORMATICOS             <div align="left"><?php  
+<div class="panel panel-success">
+      <div class="panel-heading">BIENES INFORMATICOS             <div align="left"><?php
 $time = time();
 echo date("d-m-Y ", $time);
 ?></div></div>
@@ -66,21 +66,21 @@ echo date("d-m-Y ", $time);
 	  	 <div id = "alert_placeholder"></div>
 	<form id="guardarDatos">
 	 <div class="ui-widget" >
-  Num.Empleado:    <input id="Empleado"> 
-  <input type="hidden" id="numEmpleado" name="Empleado"> 
+  Num.Empleado:    <input id="Empleado">
+  <input type="hidden" id="numEmpleado" name="Empleado">
     Nombre: <input id="Nombre" name="Nombre" readonly>
 	 Apellido Paterno: <input id="Ape_Paterno" name="Ape_Paterno" readonly>
 	  Apellido Materno: <input id="Ape_Materno" name="Ape_Materno" readonly>
 	   Sitio: <input id="ID_Sitio" name="ID_Sitio" readonly>
   <input type="hidden" name ="ID_Personal" id="ID_Personal">
-</div>	 
+</div>
 </p>
 </strong><br>
 
 <strong>
-	  <p>	 
+	  <p>
 	 <div class="ui-widget" >
-	 
+
   Serie:  <input id="Equipo_Serie" >
   Descripcion: <input id="Descripcion" readonly>
   Modelo: <input id="Equipo_Modelo" readonly>
@@ -92,24 +92,24 @@ echo date("d-m-Y ", $time);
 </strong><br>
 
 		Observaciones: <br>
-		
+
        <textarea class="form-control" name="Observaciones" rows="5" id="observaciones"></textarea>
        <br>
-	   
+
 	   <div>
 		   <table id="myTable" class="table table-bordered">
-			   <tr>	 
+			   <tr>
 				<th>Id</th>
 				<th>Serie</th>
 				<th>Descripcion</th>
 				<th>Modelo</th>
 				<th></th>
-			   </tr>				
+			   </tr>
 		</table>
 	</div>
-	
+
 	  <p align="center">
- 	  
+
  <button name="guardar" class="btn btn-primary">Guardar datos</button>
  </form>
  <button type="button" id="mas" name="mas" class="btn btn-success" onclick="getJson()">GUARDAR</button>
@@ -119,7 +119,7 @@ echo date("d-m-Y ", $time);
 
   </p>
 </div>
-	
+
 <script>
 function agregar() {
 	if(document.getElementById("ID_Equipo").value!=''){
@@ -134,28 +134,28 @@ function agregar() {
 		}
 		if(repetido==0){
 			var table = document.getElementById("myTable");
-			var row = table.insertRow();    
+			var row = table.insertRow();
 			row.insertCell(0).innerHTML = document.getElementById("ID_Equipo").value;
 			row.insertCell(1).innerHTML = document.getElementById("Equipo_Serie").value;
 			row.insertCell(2).innerHTML = document.getElementById("Descripcion").value;
-			row.insertCell(3).innerHTML = document.getElementById("Equipo_Modelo").value;	
+			row.insertCell(3).innerHTML = document.getElementById("Equipo_Modelo").value;
 			document.getElementById("ID_Equipo").value ='';
 			document.getElementById("Equipo_Serie").value ='';
 			document.getElementById("Descripcion").value ='';
-			document.getElementById("Equipo_Modelo").value ='';		
+			document.getElementById("Equipo_Modelo").value ='';
 			var campo3 = document.createElement("input");
 				campo3.type = "button";
 				campo3.value = "Borrar Fila";
-				campo3.onclick = function() {        
+				campo3.onclick = function() {
 					var fila = this.parentNode.parentNode;
-					var tbody = table.getElementsByTagName("tbody")[0];            
-					tbody.removeChild(fila);            
+					var tbody = table.getElementsByTagName("tbody")[0];
+					tbody.removeChild(fila);
 				}
 			row.insertCell(4).appendChild(campo3);
 		}else{
 			alert("No se puede agregar la misma pc a la tabla");
 			/*$('#alert_placeholder').html(' <div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><h4>Aviso!!!</h4> No hay datos para mostrar</div>');*/
-		}	
+		}
 	}else{
 		document.getElementById("Equipo_Serie").focus();
 	}
@@ -171,9 +171,9 @@ $( "#guardarDatos" ).submit(function( event ) {
 		//var parametros = $(this).serialize();
 		var $form = $(this);
 		var parametros = getFormData($form);
-		//console.log(parametros);		
-		var tablaData =getJson();		
-		//console.log(tabla);	
+		//console.log(parametros);
+		var tablaData =getJson();
+		//console.log(tabla);
 		if (document.getElementById("numEmpleado").value.length == 0){
 			alert('Necesita agregar un Empleado');
 		}
@@ -186,10 +186,10 @@ $( "#guardarDatos" ).submit(function( event ) {
 				    data: {usuario : parametros,tabla: tablaData},
 				    success:  function(data){
 				        //alert("---"+data);console.log(data);
-				        alert("Resguardo almacenado");			        
+				        alert("Resguardo almacenado");
 				    }
-				});		
-				  
+				});
+
 			}else{
 				alert('La tabla no puede estar vacia!');
 			}
@@ -202,7 +202,7 @@ function getJson(){
     var tr = table.getElementsByTagName("tr");
     var jObject = {};
     for (var i = 0; i < tr.length; i++){
-        var td = tr[i].getElementsByTagName("td");        
+        var td = tr[i].getElementsByTagName("td");
         for (var j = 0; j < td.length; j++){
 			//jObject[""+i] = td[j].innerHTML;
 			if(j==0){
@@ -211,17 +211,17 @@ function getJson(){
         }
     }
 	console.log(jObject);
-	// $total = count((array)$obj);	
-    return jObject;	
+	// $total = count((array)$obj);
+    return jObject;
 }
-function getFormData ( $form ){ 
-    var unindexed_array = $form . serializeArray (); 
-    var indexed_array =  {}; 
+function getFormData ( $form ){
+    var unindexed_array = $form . serializeArray ();
+    var indexed_array =  {};
 
-    $ . map ( unindexed_array ,  function ( n , i ){ 
-        indexed_array [ n [ 'name' ]]  = n [ 'value' ]; 
-    }); 
-    return indexed_array ; 
+    $ . map ( unindexed_array ,  function ( n , i ){
+        indexed_array [ n [ 'name' ]]  = n [ 'value' ];
+    });
+    return indexed_array ;
 }
 </script>
 </body>

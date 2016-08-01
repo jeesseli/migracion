@@ -26,21 +26,21 @@ ini_set('display_errors', '1');
 		$reload = 'resguardos.php';
 		//consulta principal para recuperar los datos
 			$query = mysqli_query($con,"Select * from resguardo LIMIT $offset,$per_page");
-		
-		
-		
+
+
+
 		if ($numrows>0){
 			?>
 	<div class="input-group">
   <span class="input-group-addon">Buscar</span>
   <input id="filtrar" type="text" class="form-control" placeholder="Buscar">
-</div>		
-			
+</div>
+
 		<table class="table table-bordered" >
-		
+
 			  <thead>
 				<tr>
-				<th></th>			
+				<th></th>
 				  <th>Fecha</th>
 				  <th>Empleado</th>
 				  <th>Delegacion</th>
@@ -52,23 +52,23 @@ ini_set('display_errors', '1');
 				  <th>Modelo</th>
 				  <th>Observaciones</th>
 				  <th>Empleado</th>
-				  
-				  
+
+
 				</tr>
 			</thead>
 		<tbody>
 			<?php while($row = mysqli_fetch_array($query)){?>
 			<tr>
-				<td>	 	
+				<td>
 				<?php $muestra= "show('".$row['id_resguardos']."')";?>
-                 <input type="checkbox" class="select-row"  onclick="<?php echo $muestra;?>"> 
-							 				
+                 <input type="checkbox" class="select-row"  onclick="<?php echo $muestra;?>">
+
 				<div id="<?php echo $row['id_resguardos'];?>" style="display: none;">
-					<?php echo $row['id_resguardos'];?>								
-				  
+					<?php echo $row['id_resguardos'];?>
+
 				</tr>
 				<?php
-			}			
+			}
 			?>
 			</tbody>
 		</table>
@@ -81,9 +81,9 @@ ini_set('display_errors', '1');
 		<div class="table-pagination pull-right">
 			<?php echo paginate($reload, $page, $total_pages, $adjacents);?>
 		</div>
-		
+
 			<?php
-			
+
 		} else {
 			?>
 			<div class="alert alert-warning alert-dismissable">
