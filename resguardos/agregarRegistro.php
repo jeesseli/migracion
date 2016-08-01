@@ -18,12 +18,12 @@ $con=@mysqli_connect('localhost', 'root', '', 'migracion');
 	$sitio =(int)($_POST['usuario']['ID_Sitio']);
 	$observaciones =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Observaciones'],ENT_QUOTES)));
 
-	$sql="INSERT INTO resguardo (Empleado, Nombre, Ape_Paterno, Ape_Materno, ID_Sitio, Observaciones) VALUES(
+	$sql="INSERT INTO resguardo (Empleado, Nombre, Ape_Paterno, Ape_Materno, ID_Sitio, Estado,Observaciones) VALUES(
 	".$empleado.",
 	'".$nombre."',
 	'".$ape_pat."',
 	'".$ape_mat."',
-	".$sitio.",
+	".$sitio.",'Pendiente',
 	'".$observaciones."')";
 	$query_update = mysqli_query($con,$sql);
 		if ($query_update){

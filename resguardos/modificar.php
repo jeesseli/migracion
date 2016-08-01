@@ -14,25 +14,27 @@ ini_set('display_errors', '1');
 	/*Inicia validacion del lado del servidor*/
 	 if (empty($_POST['estado'])){
 			$errors[] = "estado vacío";
-		
+
 		}else if (
-		
-			!empty($_POST['estado']) 
-		
-			
+
+			!empty($_POST['estado'])
+
+
 		){
-			
 
-	$id=(int)($_POST['id']);	
+	$id=(int)($_POST['id']);
+  //echo '->'.$id;
 		$estado=mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));
-
-    
-	
-	
-		$sql="UPDATE resguardo SET  Estado='".$estado."',
-		WHERE 	id_resguardos=".$id.";";
+		$sql="UPDATE resguardo SET  Estado='".$estado."' WHERE 	id_resguardos=".$id;
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
+        if($estado=='Pendiente'){          
+        }else{
+          $sql2="Select * from resguardo_invpcs where id_resguardo=".$id;
+          while($row =mysql_fetch_array($sql2)){
+              mysqli_query($con,"UPDATE inv_pcs SET  resguardo='NO' WHERE ID_Equipo=".$row['id_inv_pcs']);
+          	}
+        }
 				$messages[] = "Los datos han sido actualizados satisfactoriamente.";
 			} else{
 				$errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
