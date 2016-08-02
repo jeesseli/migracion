@@ -54,6 +54,9 @@
 									echo $message;
 								}
 							?>
+							<script type="text/javascript">
+  								setTimeout("location.reload()", 250);
+							</script>
 				</div>
 				<?php
 			}

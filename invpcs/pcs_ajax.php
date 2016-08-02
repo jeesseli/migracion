@@ -26,7 +26,7 @@ error_reporting(-1);
 		$total_pages = ceil($numrows/$per_page);
 		$reload = 'pcs.php';
 		//consulta principal para recuperar los datos
-		$query = mysqli_query($con,"Select * from inv_pcs LIMIT $offset,$per_page");
+		$query = mysqli_query($con,"Select * from inv_pcs ORDER BY  `inv_pcs`.`ID_Equipo` DESC  LIMIT $offset,$per_page");
 
 		if ($numrows>0){
 			?>

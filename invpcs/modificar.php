@@ -137,6 +137,9 @@ ini_set('display_errors', '1');
 									echo $message;
 								}
 							?>
+							<script type="text/javascript">
+  								setTimeout("location.reload()", 250);
+							</script>
 							<!--<script>setTimeout('document.location.reload()',X* 1000); </script>
 				--></div>
 				<?php

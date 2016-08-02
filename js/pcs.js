@@ -130,14 +130,13 @@
 			 $.ajax({
 					type: "POST",
 					url: "eliminar.php",
-
 					data: parametros,
 					 beforeSend: function(objeto){
 						$(".datos_ajax_delete").html("Mensaje: Cargando...");
 					  },
 					success: function(datos){
 					$(".datos_ajax_delete").html(datos);
-
+					
 					$('#dataDelete').modal('hide');
 					load(1);
 				  }
