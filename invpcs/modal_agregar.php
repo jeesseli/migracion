@@ -108,10 +108,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
 			<div id="datos_ajax_register"></div>
-          <div class="form-group">
-            <label for="descripcion" class="control-label">Descripcion:</label>
-            <input type="text" class="form-control" id="descripcion" name="descripcion" required maxlength="30">
-		  </div>
+          
       <div class="form-group">
             <label for="imagen" class="control-label">Imagen:</label>
             <input type="file" name="imagen" id="imagen">

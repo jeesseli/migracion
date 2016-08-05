@@ -15,7 +15,7 @@ ini_set('display_errors', '1');
 	if($action == 'ajax'){
 	include '../../pagination.php';		//las variables de paginación
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
-		$per_page = 10; //la cantidad de registros que desea mostrar
+		$per_page = 300; //la cantidad de registros que desea mostrar
 		$adjacents  = 4; //brecha entre páginas después de varios adyacentes
 		$offset = ($page - 1) * $per_page;
 		//Cuenta el número total de filas de la tabla*/
@@ -24,7 +24,7 @@ ini_set('display_errors', '1');
 		$total_pages = ceil($numrows/$per_page);
 		$reload = 'personal.php';
 		//consulta principal para recuperar los datos
-		$query = mysqli_query($con,"SELECT * FROM personal order by Empleado LIMIT $offset,$per_page");
+		$query = mysqli_query($con,"SELECT * FROM personal order by ID_Personal LIMIT $offset,$per_page");
 		
 		if ($numrows>0){
 			?>

@@ -89,8 +89,7 @@ error_reporting(-1);
 				<th></th>
           <th>Imagen</th>
 					<th>Serie</th>
-				  <th>Descripcion</th>
-				  <th>Tipo Equipo</th>
+				   <th>Descripcion</th>
 				  <th>Marca</th>
 				  <th>Modelo</th>
 				  <th>Numero de inventario</th>
@@ -128,7 +127,6 @@ error_reporting(-1);
 					data-id="<?php echo $row['ID_Equipo']?>"
 					data-tipo-equipo="<?php echo $row['ID_Tipo_Equipo']?>"
 					data-equipo_serie="<?php echo $row['Equipo_Serie']?>"
-					data-descripcion="<?php echo $row['Descripcion']?>"
 					data-equipo_marca="<?php echo $row['Equipo_Marca']?>"
 					data-equipo_modelo="<?php echo $row['Equipo_Modelo']?>"
 					data-numinv="<?php echo $row['Equipo_numinv']?>"
@@ -168,7 +166,7 @@ error_reporting(-1);
 
 
 				<td><?php echo $row['Equipo_Serie'];?></td>
-				<td><?php echo $row['Descripcion'];?></td>
+			
 					<td><?php echo $row['ID_Tipo_Equipo'];?></td>
 					<td><?php echo $row['Equipo_Marca'];?></td>
 					<td><?php echo $row['Equipo_Modelo'];?></td>
