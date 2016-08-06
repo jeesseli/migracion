@@ -49,10 +49,22 @@ ini_set('display_errors', '1');
 		$propietario=(int)($_POST['propietario']);
 		$tipo_equipo=(int)($_POST['tipo_equipo']);
 
+	$imagen='';
     $ruta_provisional = $_FILES["imagen"]["tmp_name"];
     $hora = time();
     $destino="imagenes/".$modelo.'_'.$hora;
-    copy($ruta_provisional,$destino);
+    //copy($ruta_provisional,$destino);
+    if (strlen($ruta_provisional)>0) {
+    // guardamos el archivo a la carpeta files
+        //$destino =  "files/".$prefijo."_".$archivo;
+        if (copy($ruta_provisional,$destino)) {
+          $messages []= "Archivo subido: <b></b>";
+          $imagen = $destino;
+        }else{
+        	$imagen='';
+            $errors[]  = "Error al subir el archivo";
+        }
+    }
     /*
     $nom=$_REQUEST["txtnom"];
 $u=$_POST["user"];
@@ -81,7 +93,7 @@ header("Location: index.php");
 		('".$descripcion."','".$marca."','".$modelo."','".$serie."','".$numinv."','".$monitor_marca."','".$monitor_mod."',
 		'".$monitor_serie."','".$teclado_marca."','".$teclado_mod."','".$teclado_serie."','".$mouse_marca."','".$mouse_mod."',
 		'".$mouse_serie."', '".$ups_marca."','".$ups_mod."','".$ups_serie."','".$res."',".$sitio.",".$propietario.",'".$propietario_des."',
-		".$empleado.",".$tipo_equipo.",'".$destino."')";
+		".$empleado.",".$tipo_equipo.",'".$imagen."')";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
 				$messages[] = "Los datos han sido guardados satisfactoriamente.";
