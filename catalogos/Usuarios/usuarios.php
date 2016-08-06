@@ -7,6 +7,15 @@
      <title>Telefonos</title>
 	 <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
 <link href="../../js/bootstrap.min.css" rel="stylesheet">
+<?php
+session_start();
+if(!isset($_SESSION['usuario']['id_usuario']) || !strcmp ($_SESSION['tipo'],'ADMIN')==0){
+	//header ("Location: login.php");buu, bubuu		
+	//include("cerrar.php");	
+	header("Location: \SistemaDeInventarios\login.php");//entonces jaja
+	// asi lo dejamos?si	
+}
+?>
   </head>
   <body>
   <a href="http://www.gobernacion.gob.mx/" target="_blank" alt="SEGOB"><img src="../../img/Logo1.png" style="padding-left: 400px;"></a>
@@ -19,16 +28,6 @@
   <?php include ("modal_eliminar.php");?>
 <h2 class='col-xs-30'>
  <?php
-session_start();
-if(!isset($_SESSION['usuario']['id_usuario']) || !strcmp ($_SESSION['tipo'],'ADMIN')==0){
-	//header ("Location: login.php");buu, bubuu		
-	//include("cerrar.php");	
-	header("Location: \SistemaDeInventarios\login.php");//entonces jaja
-	// asi lo dejamos?si
-	
-
-	
-}
 echo $_SESSION['usuario']['nombre']. " Bievenido";
 	?>
 </h2>  
