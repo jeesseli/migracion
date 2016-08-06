@@ -108,7 +108,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
 			<div id="datos_ajax_register"></div>
-          
+
       <div class="form-group">
             <label for="imagen" class="control-label">Imagen:</label>
             <input type="file" name="imagen" id="imagen" required>
@@ -122,9 +122,9 @@ $(document).ready(function(){
 		 </div>
 		 <div class="form-group">
   <label for="res">Resguardo:</label>
-  <select NAME="res" class="form-control" id="res">  
+  <select NAME="res" class="form-control" id="res">
     <option>No</option>
-    <option>Si</option>    
+    <option>Si</option>
     </select>
 </div>
 		  <div class="form-group">
@@ -202,7 +202,7 @@ $(document).ready(function(){
         $("#imagen").change(function() {
               var val = $(this).val();
               switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
-                  case 'gif': case 'jpg': case 'png':                      
+                  case 'gif': case 'jpg': case 'jpeg':  case 'png':                      
                       break;
                   default:
                       $(this).val('');

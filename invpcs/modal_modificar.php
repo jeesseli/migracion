@@ -60,7 +60,7 @@ $conexion->close(); //cerramos la conexión
       </div>
       <div class="modal-body">
 			<div id="datos_ajax"></div>
-          
+
 		  <div class="form-group">
 			<label for="tipo_equipo" class="control-label">Tipo de Equipo:</label>
 			<select name="tipo_equipo">
@@ -143,7 +143,7 @@ $conexion->close(); //cerramos la conexión
             <img id="imagen" name="imagen" style="width:200px; height:200px" />
             <label for="imagen">Imagen</b>:</label><br />
             <input type="file" name="imagen_update" id="imagen_update">
-            <br><output id="list"></output>
+            <br><output id="list2"></output>
      </div>
 		 <br>
 
@@ -164,4 +164,43 @@ $conexion->close(); //cerramos la conexión
     </div>
   </div>
 </div>
+<script type="text/javascript">
+      $("#imagen_update").change(function() {
+            var val = $(this).val();
+            switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
+                case 'gif': case 'jpg': case 'jpeg': case 'png':
+                    break;
+                default:
+                    $(this).val('');
+                    // error message here
+                    alert("Esto no es una Imagen");
+                    break;
+            }
+        });
+      </script>
+<script type="text/javascript">
+function archivo(evt) {
+var files = evt.target.files; // FileList object
+
+// Obtenemos la imagen del campo "file".
+for (var i = 0, f; f = files[i]; i++) {
+  //Solo admitimos imágenes.
+  if (!f.type.match('image.*')) {
+      continue;
+  }
+
+  var reader = new FileReader();
+
+  reader.onload = (function(theFile) {
+      return function(e) {
+        // Insertamos la imagen
+       document.getElementById("list2").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+      };
+  })(f);
+
+  reader.readAsDataURL(f);
+}
+}
+document.getElementById('imagen_update').addEventListener('change', archivo, false);
+</script>
 </form>
