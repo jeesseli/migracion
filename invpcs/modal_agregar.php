@@ -111,7 +111,7 @@ $(document).ready(function(){
           
       <div class="form-group">
             <label for="imagen" class="control-label">Imagen:</label>
-            <input type="file" name="imagen" id="imagen">
+            <input type="file" name="imagen" id="imagen" required>
             <br><output id="list"></output>
       </div>
 		  <div class="form-group">
@@ -198,6 +198,20 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+  <script type="text/javascript">
+        $("#imagen").change(function() {
+              var val = $(this).val();
+              switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
+                  case 'gif': case 'jpg': case 'png':                      
+                      break;
+                  default:
+                      $(this).val('');
+                      // error message here
+                      alert("Esto no es una Imagen");
+                      break;
+              }
+          });
+        </script>
 <script>
 function archivo(evt) {
   var files = evt.target.files; // FileList object
