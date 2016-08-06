@@ -7,6 +7,13 @@
      <title>Telefonos</title>
 	 <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
 <link href="../../js/bootstrap.min.css" rel="stylesheet">
+<?php
+session_start();
+if(!isset($_SESSION['usuario']['id_usuario']) || !strcmp ($_SESSION['tipo'],'ADMIN')==0){	
+	//include("cerrar.php");	
+	header("Location: \SistemaDeInventarios\login.php");	
+}
+?>
   </head>
   <body>
   <a href="http://www.gobernacion.gob.mx/" target="_blank" alt="SEGOB"><img src="../../img/Logo1.png" style="padding-left: 400px;"></a>
@@ -20,12 +27,7 @@
 <h2 class='col-xs-30'>
 	<?php 
 	echo "Hola <br>" ;
-session_start();
-if(!isset($_SESSION['usuario']['id_usuario']) || !strcmp ($_SESSION['tipo'],'ADMIN')==0){
-	include("cerrar.php");
-	header("Location: \SistemaDeInventarios\login.php");	
-}
-echo $_SESSION['usuario']['nombre']. "";
+	echo $_SESSION['usuario']['nombre']. "";
 	?>
 </h2>
   

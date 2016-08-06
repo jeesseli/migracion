@@ -59,7 +59,7 @@ echo $_SESSION['usuario']['nombre']. "";
 								</li>
 						
 								<li>
-							<a href="catalogos/Propietarios/Propietarios.php">
+							<a href="catalogos/Propietarios/propietarios.php">
 							<span class="icon">
 							<i aria-hidden="true" class="icon_box-checked"></i>
 							</span>
