@@ -14,12 +14,21 @@ if(mysql_num_rows($consulta)>0)
 	}
 $subconsulta =mysql_query("SELECT personal. * , sitios.Instancia FROM personal LEFT JOIN sitios ON personal.ID_Sitio =
  sitios.ID_Sitio WHERE Empleado =".$_SESSION['usuario']['empleado']);
-while($row2 =mysql_fetch_array($subconsulta)){
-		$_SESSION['usuario']['nombre']=$row2['Nombre'];
-		$_SESSION['usuario']['id_sitio']=$row2['ID_Sitio'];				
-		$_SESSION['usuario']['instancia']=$row2['Instancia'];
+
+	if(mysql_num_rows($subconsulta) > 0){
+		while($row2 =mysql_fetch_array($subconsulta)){
+			$_SESSION['usuario']['nombre']=$row2['Nombre'];
+			$_SESSION['usuario']['id_sitio']=$row2['ID_Sitio'];				
+			$_SESSION['usuario']['instancia']=$row2['Instancia'];
+		}
+
+
+		include("valida_session.php");	
+	}else{
+		session_destroy();
+		echo "<center><p>Error</p></center>";
+		echo '<script type="text/javascript">setTimeout(function() { location.href="login.php" } , 2000); </script>';
 	}
-	include("valida_session.php");	
 	/*if(strcmp ($_SESSION['tipo'],'ADMIN')==0){
 		header("Location: PaginaPrincipal.php"); //redirecciona a la pagina.		
 	}else{
@@ -31,7 +40,8 @@ while($row2 =mysql_fetch_array($subconsulta)){
 }
 else
 {
-echo "<center><p> Datos de accso incorrectos</p></center>";
+echo "<center><p> Datos de acceso incorrectos</p></center>";
+echo '<script type="text/javascript">setTimeout(function() { location.href="login.php" } , 2000); </script>';
 }
 }
 ?>

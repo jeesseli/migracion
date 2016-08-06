@@ -8,7 +8,13 @@
          <link rel="stylesheet" href="../css/lightbox.css" type="text/css" media="screen" />
 	 <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
 <link href="../js/bootstrap.min.css" rel="stylesheet">
+<?php
+session_start();
+if(!isset($_SESSION['usuario']['id_usuario'])){
 
+	header("Location: \SistemaDeInventarios\login.php");
+}
+?>
   </head>
   <body>
   <a href="http://www.gobernacion.gob.mx/" target="_blank" alt="SEGOB"><img src="../img/Logo1.png" style="padding-left: 400px;"></a>
@@ -22,12 +28,6 @@
  <h3 class='col-xs-20'>
 	<?php
 	echo "Hola <br>" ;
-session_start();
-if(!isset($_SESSION['usuario']['id_usuario'])){
-
-	header("Location: \SistemaDeInventarios\login.php");
-
-}
 echo $_SESSION['usuario']['nombre']. "";
 	?>
 </h3></div>
