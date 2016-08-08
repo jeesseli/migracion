@@ -28,13 +28,13 @@ ini_set('display_errors', '1');
 		$sql="UPDATE resguardo SET  Estado='".$estado."' WHERE 	id_resguardos=".$id;
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
-        if($estado=='Pendiente'){          
-        }else{
-          $sql2="Select * from resguardo_invpcs where id_resguardo=".$id;
-          while($row =mysql_fetch_array($sql2)){
-              mysqli_query($con,"UPDATE inv_pcs SET  resguardo='NO' WHERE ID_Equipo=".$row['id_inv_pcs']);
-          	}
-        }
+		        if($estado=='Pendiente'){          
+		        }else{
+		          $sql2="Select * from resguardo_invpcs where id_resguardo=".$id;
+		          while($row =mysql_fetch_array($sql2)){
+		              mysqli_query($con,"UPDATE inv_pcs SET  resguardoUnico='NO' WHERE ID_Equipo=".$row['id_inv_pcs']);
+		          	}
+		        }
 				$messages[] = "Los datos han sido actualizados satisfactoriamente.";
 			} else{
 				$errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);

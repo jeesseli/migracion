@@ -4,6 +4,7 @@
 ini_set('display_errors', '1');
 //error_reporting(-1);
 	# conectare la base de datos
+//include '/../conexion_full.php';
     $con=@mysqli_connect('localhost', 'root', '', 'migracion');
     if(!$con){
         die("imposible conectarse: ".mysqli_error($con));
@@ -89,7 +90,7 @@ ini_set('display_errors', '1');
 							 				
 				<div id="<?php echo $row['id_resguardos'];?>" style="display: none;">
 				<?php echo $row['id_resguardos'];?>								
-					<button type="button" class="btn-primary" data-toggle="modal" 
+					<button type="button" class="btn btn-primary" data-toggle="modal" 
 					data-target="#dataUpdate" 
 					data-id="<?php echo $row['id_resguardos']?>"
 					data-estado="<?php echo $row['Estado']?> " >
@@ -98,7 +99,8 @@ ini_set('display_errors', '1');
 					<button type="button" class="btn btn-danger" 
 					data-toggle="modal" 
 					data-target="#dataDelete"
-					data-id="<?php echo $row['id_resguardos']?>"  ><i class='glyphicon glyphicon-trash'></i> Eliminar</button></div>
+					data-id="<?php echo $row['id_resguardos']?>"  ><i class='glyphicon glyphicon-trash'></i> Eliminar</button>
+					<?php echo '<a href="pdf.php?'.$row['id_resguardos'].'" class="btn btn-warning" role="button">Imprimir</a>';?></div>
 				  
 				    <td><?php echo $row['Fecha'];?></td>
 				 	<td><?php echo$row['Estado'];?></td>

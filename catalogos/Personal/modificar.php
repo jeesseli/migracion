@@ -51,14 +51,14 @@ ini_set('display_errors', '1');
 		$rfc=mysqli_real_escape_string($con,(strip_tags($_POST["rfc"],ENT_QUOTES)));
 		$curp=mysqli_real_escape_string($con,(strip_tags($_POST["curp"],ENT_QUOTES)));
 		//$sit=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
-		$sit=(int)($_POST['sitio']);
+		$sit=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
 		
 	
 		$id=(int)($_POST['id']);
 		
 		$sql="UPDATE personal  SET  Empleado='".$em.",', Nombre='".$nom."',Ape_Paterno='".$pat."',
 		Ape_Materno='".$mat."', Puesto='".$pues."', RFC='".$rfc."',
-		Curp='".$curp."', ID_Sitio=".$sit."  WHERE ID_Personal=".$id.";";
+		Curp='".$curp."', ID_Sitio='".$sit."'  WHERE ID_Personal=".$id.";";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
 				$messages[] = "Los datos han sido actualizados satisfactoriamente.";

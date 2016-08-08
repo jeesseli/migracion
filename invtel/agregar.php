@@ -54,7 +54,8 @@ ini_set('display_errors', '1');
 		$ip=mysqli_real_escape_string($con,(strip_tags($_POST["ip"],ENT_QUOTES)));
 		$inv=mysqli_real_escape_string($con,(strip_tags($_POST["inventario"],ENT_QUOTES)));
 		$empleado=$_SESSION['usuario']['empleado'];
-		$sitio=(int)($_POST['sitio']);
+		$sitio=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
+		// $sit=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
 		$propietario=(int)($_POST['propietario']);
 		$tipo_telefono=(int)($_POST['tipo_telefono']);
 		
@@ -78,7 +79,7 @@ ini_set('display_errors', '1');
 		
 		$sql="INSERT INTO inv_tel(Descripcion, Marca,Modelo, Serie,Uni,Ext,IP,Inventario, ID_Sitio,ID_Propietario,Propietario,Empleado,ID_Tipo_Tel) VALUES
 		('".$descripcion."','".$marca."','".$modelo."','".$serie."','".$uni."',
-		".$ext.",".$ip.",".$inv.",".$sitio.",".$propietario.",'".$propietario_des."',
+		".$ext.",".$ip.",".$inv.",'".$sitio."',".$propietario.",'".$propietario_des."',
 		".$empleado.",".$tipo_telefono.",".$tel_des.")";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){

@@ -77,7 +77,7 @@ ini_set('display_errors', '1');
     }
 
 		$id=(int)($_POST['id']);
-		$sitio=(int)($_POST['sitio']);
+		$sitio=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
 		$empleado=$_SESSION['usuario']['empleado'];
 		$propietario=(int)($_POST['propietario']);
 		$tipo_equipo=(int)($_POST['tipo_equipo']);
@@ -99,7 +99,7 @@ ini_set('display_errors', '1');
 		teclado_modelo='".$teclado_mod."', teclado_serie='".$teclado_serie."', mouse_marca='".$mouse_marca."',
 		mouse_modelo='".$mouse_mod."', mouse_serie='".$mouse_serie."', ups_marca='".$ups_marca."',
 		ups_modelo='".$ups_mod."', ups_modelo='".$ups_mod."', ups_serie='".$ups_serie."', resguardo='".$resguardo."', empleado='".$empleado."',
-		ID_Sitio=".$sitio.",ID_Propietario=".$propietario.",Propietario='".$propietario_des."',ID_Tipo_Equipo=".$tipo_equipo.", imagen='".$imagen."'
+		ID_Sitio='".$sitio."',ID_Propietario=".$propietario.",Propietario='".$propietario_des."',ID_Tipo_Equipo=".$tipo_equipo.", imagen='".$imagen."'
 		WHERE ID_Equipo=".$id.";";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){

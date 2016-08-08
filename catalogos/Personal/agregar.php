@@ -51,12 +51,12 @@ ini_set('display_errors', '1');
 		$rfc=mysqli_real_escape_string($con,(strip_tags($_POST["rfc"],ENT_QUOTES)));
 		$curp=mysqli_real_escape_string($con,(strip_tags($_POST["curp"],ENT_QUOTES)));
 		//$sit=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
-		$sit=(int)($_POST['sitio']);
+		$sit=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
 		
 				
 		//`ID_Personal` `ID_Sitio` `Curp``RFC``Puesto``Ape_Materno``Ape_Paterno``Nombre`
 		$sql="INSERT INTO personal(Empleado,Nombre,Ape_Paterno,Ape_Materno,Puesto,RFC,Curp,ID_Sitio) VALUES
-		(".$em." ,'".$nom."','".$pat."','".$mat."','".$pues."','".$rfc."','".$curp."',".$sit." )";
+		(".$em." ,'".$nom."','".$pat."','".$mat."','".$pues."','".$rfc."','".$curp."','".$sit."' )";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
 				$messages[] = "Los datos han sido guardados satisfactoriamente.";

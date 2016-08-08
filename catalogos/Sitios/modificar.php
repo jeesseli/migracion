@@ -41,7 +41,7 @@ ini_set('display_errors', '1');
 		$municipio=mysqli_real_escape_string($con,(strip_tags($_POST["municipio"],ENT_QUOTES)));
 		$enlace=mysqli_real_escape_string($con,(strip_tags($_POST["enlace"],ENT_QUOTES)));
 		
-		$id=(int)($_POST['id']);
+		$id=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
 		
 		$sql="UPDATE sitios  SET  ID_Sitio='".$sitio."', Estado='".$estado."',Instancia='".$instancia."',
 		Domicilio='".$domicilio."', Municipio='".$municipio."', Enlace='".$enlace."' WHERE ID_Sitio=".$id.";";

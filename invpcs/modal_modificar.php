@@ -70,8 +70,8 @@ $conexion->close(); //cerramos la conexión
 		 <div class="form-group">
   <label for="res">Resguardo:</label>
   <select name="resguardo" class="form-control" id="resguardo">
-    <option>Si</option>
-    <option>No</option>
+    <option value="SI">Si</option>
+    <option value="NO">No</option>
     </select>
 </div>
 		  <div class="form-group">

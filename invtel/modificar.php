@@ -53,7 +53,8 @@ ini_set('display_errors', '1');
 		$ip=mysqli_real_escape_string($con,(strip_tags($_POST["ip"],ENT_QUOTES)));
 		$inv=mysqli_real_escape_string($con,(strip_tags($_POST["inventario"],ENT_QUOTES)));
 		$id=(int)($_POST['id']);
-		$sitio=(int)($_POST['sitio']);
+		$sitio=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
+
 		$empleado=$_SESSION['usuario']['empleado'];		
 		$propietario=(int)($_POST['propietario']);	
 		$telefono_des="";
@@ -73,7 +74,7 @@ ini_set('display_errors', '1');
 		}
 		$sql="UPDATE inv_tel  SET  Descripcion='".$descripcion."', Marca='".$marca."',Modelo='".$modelo."',
 		Serie='".$serie."', Uni='".$uni."', Ext='".$ext."',
-		IP='".$ip."', Inventario='".$inv."', Empleado='".$empleado."', ID_Sitio=".$sitio.",ID_Propietario=".$propietario.",Propietario='".$propietario_des."'
+		IP='".$ip."', Inventario='".$inv."', Empleado='".$empleado."', ID_Sitio='".$sitio."',ID_Propietario=".$propietario.",Propietario='".$propietario_des."'
 		,ID_Tipo_Tel=".$tipotel.",Descripcion=".$telefono_des.",
 		WHERE ID_Tel=".$id.";";
 		$query_update = mysqli_query($con,$sql);

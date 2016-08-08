@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 error_reporting(-1);
 	# conectare la base de datos
+//include();
     $con=@mysqli_connect('localhost', 'root', '', 'migracion');
     if(!$con){
         die("imposible conectarse: ".mysqli_error($con));

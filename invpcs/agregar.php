@@ -45,7 +45,8 @@ ini_set('display_errors', '1');
 		$ups_mod=mysqli_real_escape_string($con,(strip_tags($_POST["ups_mod"],ENT_QUOTES)));
 		$ups_serie=mysqli_real_escape_string($con,(strip_tags($_POST["ups_serie"],ENT_QUOTES)));
 		$empleado=$_SESSION['usuario']['empleado'];
-		$sitio=(int)($_POST['sitio']);
+		$sitio=mysqli_real_escape_string($con,(strip_tags($_POST["sitio"],ENT_QUOTES)));
+
 		$propietario=(int)($_POST['propietario']);
 		$tipo_equipo=(int)($_POST['tipo_equipo']);
 
@@ -89,11 +90,11 @@ header("Location: index.php");
 		////
 
 		$sql="INSERT INTO inv_pcs (descripcion, equipo_marca,equipo_modelo, equipo_serie,Equipo_numinv,monitor_marca,monitor_modelo,monitor_serie,
-		teclado_marca,teclado_modelo,teclado_serie,mouse_marca,mouse_modelo,mouse_serie,ups_marca,ups_modelo,ups_serie,resguardo,ID_Sitio,ID_Propietario,Propietario,Empleado,ID_Tipo_Equipo,imagen) VALUES
+		teclado_marca,teclado_modelo,teclado_serie,mouse_marca,mouse_modelo,mouse_serie,ups_marca,ups_modelo,ups_serie,resguardo,ID_Sitio,ID_Propietario,Propietario,Empleado,ID_Tipo_Equipo,imagen,resguardoUnico) VALUES 
 		('".$descripcion."','".$marca."','".$modelo."','".$serie."','".$numinv."','".$monitor_marca."','".$monitor_mod."',
 		'".$monitor_serie."','".$teclado_marca."','".$teclado_mod."','".$teclado_serie."','".$mouse_marca."','".$mouse_mod."',
 		'".$mouse_serie."', '".$ups_marca."','".$ups_mod."','".$ups_serie."','".$res."',".$sitio.",".$propietario.",'".$propietario_des."',
-		".$empleado.",".$tipo_equipo.",'".$imagen."')";
+		".$empleado.",".$tipo_equipo.",'".$imagen."','NO')";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
 				$messages[] = "Los datos han sido guardados satisfactoriamente.";

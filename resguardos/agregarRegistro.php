@@ -15,7 +15,7 @@ $con=@mysqli_connect('localhost', 'root', '', 'migracion');
 	$nombre =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Nombre'],ENT_QUOTES)));
 	$ape_pat =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Ape_Paterno'],ENT_QUOTES)));
 	$ape_mat =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Ape_Materno'],ENT_QUOTES)));
-	$sitio =(int)($_POST['usuario']['ID_Sitio']);
+	$sitio =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['ID_Sitio'],ENT_QUOTES)));	
 	$observaciones =mysqli_real_escape_string($con,(strip_tags($_POST['usuario']['Observaciones'],ENT_QUOTES)));
 
 	$sql="INSERT INTO resguardo (Empleado, Nombre, Ape_Paterno, Ape_Materno, ID_Sitio, Estado,Observaciones) VALUES(
@@ -23,7 +23,7 @@ $con=@mysqli_connect('localhost', 'root', '', 'migracion');
 	'".$nombre."',
 	'".$ape_pat."',
 	'".$ape_mat."',
-	".$sitio.",'Pendiente',
+	'".$sitio."','Pendiente',
 	'".$observaciones."')";
 	$query_update = mysqli_query($con,$sql);
 		if ($query_update){
@@ -35,7 +35,7 @@ $con=@mysqli_connect('localhost', 'root', '', 'migracion');
 			echo "\n elementos en la tabla--".count($table);
 			for ($i=0; $i < count($table); $i++) {
 				mysqli_query($con,"INSERT INTO resguardo_invpcs (id_resguardo,id_inv_pcs) VALUES(".$id_Resguardo.",".$table[$i].")");
-				mysqli_query($con,"UPDATE inv_pcs SET resguardo ='SI' WHERE ID_Equipo=".$table[$i]);
+				mysqli_query($con,"UPDATE inv_pcs SET resguardoUnico ='SI' WHERE ID_Equipo=".$table[$i]);
 			}
 			echo "\n Exito x2";
       //header("Location: /resguardos/pdf.php?resguardo".$id_Resguardo);
