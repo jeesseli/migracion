@@ -71,7 +71,7 @@ ini_set('display_errors', '1');
 				<tr>
 				<th></th>			
 				  <th>Serie</th>
-				  <th>Descripcion</th>
+				 
 				  <th> Tipo Equipo</th>
 				  <th>Marca</th>
 				  <th>Modelo</th>
@@ -100,7 +100,7 @@ ini_set('display_errors', '1');
 					data-target="#dataUpdate" 
 					data-id="<?php echo $row['ID_Tel']?>"
 					data-tipo-equipo="<?php echo $row['ID_Tipo_Tel']?>"
-					data-descripcion="<?php echo $row['Descripcion']?>"
+					
 					data-marca="<?php echo $row['Marca']?>"
 					data-modelo="<?php echo $row['Modelo']?>"
 					data-serie="<?php echo $row['Serie']?>" 
@@ -119,7 +119,7 @@ ini_set('display_errors', '1');
 					data-id="<?php echo $row['ID_Tel']?>"  ><i class='glyphicon glyphicon-trash'></i> Eliminar</button></div>
 				  
 				    <td><?php echo $row['Serie'];?></td>
-				 	<td><?php echo$row['Descripcion'];?></td>
+				 	
 					<td><?php echo $row['ID_Tipo_Tel']?></td>
 					<td><?php echo $row['Marca'];?></td>
 					<td><?php echo $row['Modelo'];?></td>

@@ -4,8 +4,7 @@
 		$.ajax({
 			type: "POST",
 			
-			
-			url:'personal_ajax.php',
+	url:'personal_ajax.php',
 			data: parametros,
 			 beforeSend: function(objeto){
 			$("#loader").html("<img src='../img/loader.gif'>");

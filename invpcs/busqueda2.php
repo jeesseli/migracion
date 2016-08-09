@@ -3,7 +3,7 @@
  
  $term=$_POST["term"];
  //$fetch = mysqli_query($con,"SELECT * FROM  inv_pcs WHERE Equipo_Serie like '%" . mysqli_real_escape_string($con,($_GET['term'])) . "%' LIMIT 0 ,50"); 
- $result=mysqli_query($con,"SELECT * FROM  inv_pcs WHERE Equipo_Serie like '%$term%'");
+ $result=mysqli_query($con,"SELECT inv_pcs. * , equipos.Descripcion_Equipo FROM inv_pcs LEFT JOIN equipos ON inv_pcs.ID_Tipo_Equipo = equipos.ID_Tipo_Equipo where inv_pcs.Equipo_Serie like '%$term%'");
  $found=mysqli_num_rows($result);
  
  if($found>0){
@@ -15,9 +15,9 @@
 				echo $row['ID_Equipo'];
 				echo '<button type="button" class="btn-primary" data-toggle="modal" data-target="#dataUpdate"';
 				echo 'data-id="'.$row['ID_Equipo'].'"';
-				echo 'data-tipo-equipo="'.$row['ID_Tipo_Equipo'].'"';
+				echo 'data-tipo_equipo="'.$row['ID_Tipo_Equipo'].'"';
 				echo 'data-equipo_serie="'.$row['Equipo_Serie'].'"';
-				echo 'data-descripcion="'.$row['Descripcion'].'"';
+				echo 'data-descripcion="'.$row['ID_Tipo_Equipo'].'"';
 				echo 'data-equipo_marca="'.$row['Equipo_Marca'].'"';
 				echo 'data-equipo_modelo="'.$row['Equipo_Modelo'].'"';
 				echo 'data-numinv="'.$row['Equipo_numinv'].'"';
@@ -35,16 +35,23 @@
 				echo 'data-ups_serie="'.$row['Ups_Serie'].'"';
 				echo 'data-resguardo="'.$row['resguardo'].'"';
 				echo 'data-sitio="'.$row['ID_Sitio'].'"';
-				echo 'data-propietario="'.$row['ID_Propietario'].'"';
+				echo 'data-propietario="'.$row['ID_Propietario'].'"';				
+				echo 'data-imagen="'.$row['imagen'].'">';
 				echo 'data-empleado="'.$row['Empleado'].'">';
 				echo '<i class="glyphicon glyphicon-edit"></i> Modificar</button>';
 				echo '<button type="button" class="btn btn-danger"';
 				echo 'data-toggle="modal"  data-target="#dataDelete"';								
 				echo 'data-id="'.$row['ID_Equipo'].'"  ><i class="glyphicon glyphicon-trash"></i> Eliminar</button></div>';
 				echo '</td>';
-				
+				echo '<td>';
+				if(strlen($row['imagen'])>0){
+					echo'<a href="'.$row['imagen'].'" rel="lightbox['.$row['Equipo_Modelo'].']" data-lightbox="roadtrip"><img src="'.$row['imagen'].'" width="100px" height="100px" alt="'.$row['Equipo_Modelo'].'"></a></td>';
+				}else{
+					echo "Sin imagen";
+				}
+				echo '</td>';
 				echo '<td>'.$row['Equipo_Serie'].'</td>';
-				echo '<td>'.$row['Descripcion'].'</td>';				
+				echo '<td>'.$row['Descripcion_Equipo'].'</td>';				
 				echo '<td>'.$row['ID_Tipo_Equipo'].'</td>';
 				echo '<td>'.$row['Equipo_Marca'].'</td>';
 				echo '<td>'.$row['Equipo_Modelo'].'</td>';

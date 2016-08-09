@@ -35,7 +35,7 @@ ini_set('display_errors', '1');
 
 		// escaping, additionally removing everything that could be (html/javascript-) code
 		//$ID_Equipo=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
-		$descripcion=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
+		//$descripcion=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
 		$marca=mysqli_real_escape_string($con,(strip_tags($_POST["equipo_marca"],ENT_QUOTES)));
 		$modelo=mysqli_real_escape_string($con,(strip_tags($_POST["equipo_modelo"],ENT_QUOTES)));
 		$serie=mysqli_real_escape_string($con,(strip_tags($_POST["equipo_serie"],ENT_QUOTES)));
@@ -93,8 +93,8 @@ ini_set('display_errors', '1');
 		}
 		//////
 
-		$sql="UPDATE inv_pcs  SET  descripcion='".$descripcion."', equipo_marca='".$marca."',
-		equipo_modelo='".$modelo."', equipo_serie='".$serie."', equipo_numinv=".$numinv.", monitor_marca='".$monitor_marca."',
+		$sql="UPDATE inv_pcs  SET  equipo_marca='".$marca."', equipo_modelo='".$modelo."', equipo_serie='".$serie."', 
+		equipo_numinv=".$numinv.", monitor_marca='".$monitor_marca."',
 		monitor_modelo='".$monitor_mod."', monitor_serie='".$monitor_serie."', teclado_marca='".$teclado_marca."',
 		teclado_modelo='".$teclado_mod."', teclado_serie='".$teclado_serie."', mouse_marca='".$mouse_marca."',
 		mouse_modelo='".$mouse_mod."', mouse_serie='".$mouse_serie."', ups_marca='".$ups_marca."',

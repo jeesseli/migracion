@@ -13,7 +13,8 @@ if (@mysqli_connect_errno()) {
 //echo "-> ".$id_resguardo;
 if ($con ){
   $sql=mysqli_query($con,"Select * from resguardo Where id_resguardos =".$id_resguardo);
-  $res_pcs=mysqli_query($con,"SELECT resguardo_invpcs. * , inv_pcs . * FROM resguardo_invpcs LEFT JOIN inv_pcs ON resguardo_invpcs.id_inv_pcs = inv_pcs.ID_Equipo WHERE resguardo_invpcs.id_resguardo =".$id_resguardo);
+  $res_pcs=mysqli_query($con,"SELECT resguardo_invpcs. * , inv_pcs . * FROM resguardo_invpcs LEFT JOIN inv_pcs ON resguardo_invpcs.id_inv_pcs = inv_pcs.ID_Equipo WHERE resguardo_invpcs.id_resguardo =".$id_resguardo);  
+  
   class PDF extends FPDF
   {
   // Cabecera de p�gina
@@ -72,11 +73,14 @@ if ($con ){
   $pdf->Text(65,60,('Equipo Serie'),0,'C', 0);
   $pdf->Text(110,60,('Equipo Modelo'),0,'C', 0);
       while($row = mysqli_fetch_array($res_pcs)){
+		$des=mysqli_query($con,"Select Descripcion_Equipo from equipos Where ID_Tipo_Equipo =".$row['ID_Equipo']);
+		$des2=mysqli_fetch_array($des);
         /*Nombre
         ID_Sitio
         Observaciones*/
         //$pdf->Cell(0,0,$row['Nombre'].' ',0,1);
-        $pdf->Text(25,$fila,($row['Descripcion']),0,'C', 0);
+        //$pdf->Text(25,$fila,($row['Descripcion']),0,'C', 0);
+		$pdf->Text(25,$fila,($des2['Descripcion_Equipo']),0,'C', 0);
         $pdf->Text(65,$fila,($row['Equipo_Serie']),0,'C', 0);
         $pdf->Text(110,$fila,($row['Equipo_Modelo']),0,'C', 0);
         //echo $row['Nombre'];

@@ -18,6 +18,8 @@
 		$('#dataUpdate').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Botón que activó el modal
 		  var descripcion = button.data('descripcion')
+		  
+		  var tipo_equipo = button.data('tipo_equipo')
 		  var id = button.data('id')
 		  var marca = button.data('equipo_marca')
 		  var modelo = button.data('equipo_modelo')
@@ -37,6 +39,7 @@
 		  var umod = button.data('ups_modelo')
 		  var userie = button.data('ups_serie')
 		  var sitio = button.data('sitio')
+		  var propietario = button.data('propietario')
 			var imagen = button.data('imagen')
 			console.log(imagen);
 		  var empleado = button.data('empleado') // Extraer la información de atributos de datos
@@ -47,7 +50,7 @@
 			//$('#imagen').attr('src',imagen);
 			modal.find('.modal-body #imagen').attr('src',imagen)
 			modal.find('.modal-body #imagen_original').val(imagen)
-		  modal.find('.modal-body #descripcion').val(descripcion)
+		  modal.find('.modal-body #tipo_equipo').val(tipo_equipo)
 		  modal.find('.modal-body #equipo_marca').val(marca)
 		  modal.find('.modal-body #equipo_modelo').val(modelo)
 		  modal.find('.modal-body #equipo_serie').val(serie)
@@ -66,6 +69,7 @@
 		  modal.find('.modal-body #ups_mod').val(umod)
 		  modal.find('.modal-body #ups_serie').val(userie)
 		  modal.find('.modal-body #sitio').val(sitio)
+		  modal.find('.modal-body #propietario').val(propietario)
 		  modal.find('.modal-body #empleado').val(empleado)
 
 		 $('.alert').hide();//Oculto alert

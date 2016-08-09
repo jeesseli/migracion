@@ -26,7 +26,7 @@ ini_set('display_errors', '1');
 
 		// escaping, additionally removing everything that could be (html/javascript-) code
 		//$ID_Equipo=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
-		$descripcion=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
+		//$descripcion=mysqli_real_escape_string($con,(strip_tags($_POST["descripcion"],ENT_QUOTES)));
 		$marca=mysqli_real_escape_string($con,(strip_tags($_POST["marca"],ENT_QUOTES)));
 		$modelo=mysqli_real_escape_string($con,(strip_tags($_POST["modelo"],ENT_QUOTES)));
 		$serie=mysqli_real_escape_string($con,(strip_tags($_POST["serie"],ENT_QUOTES)));
@@ -89,9 +89,9 @@ header("Location: index.php");
 		}
 		////
 
-		$sql="INSERT INTO inv_pcs (descripcion, equipo_marca,equipo_modelo, equipo_serie,Equipo_numinv,monitor_marca,monitor_modelo,monitor_serie,
+		$sql="INSERT INTO inv_pcs ( equipo_marca,equipo_modelo, equipo_serie,Equipo_numinv,monitor_marca,monitor_modelo,monitor_serie,
 		teclado_marca,teclado_modelo,teclado_serie,mouse_marca,mouse_modelo,mouse_serie,ups_marca,ups_modelo,ups_serie,resguardo,ID_Sitio,ID_Propietario,Propietario,Empleado,ID_Tipo_Equipo,imagen,resguardoUnico) VALUES 
-		('".$descripcion."','".$marca."','".$modelo."','".$serie."','".$numinv."','".$monitor_marca."','".$monitor_mod."',
+		('".$marca."','".$modelo."','".$serie."','".$numinv."','".$monitor_marca."','".$monitor_mod."',
 		'".$monitor_serie."','".$teclado_marca."','".$teclado_mod."','".$teclado_serie."','".$mouse_marca."','".$mouse_mod."',
 		'".$mouse_serie."', '".$ups_marca."','".$ups_mod."','".$ups_serie."','".$res."',".$sitio.",".$propietario.",'".$propietario_des."',
 		".$empleado.",".$tipo_equipo.",'".$imagen."','NO')";

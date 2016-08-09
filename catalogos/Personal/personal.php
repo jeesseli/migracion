@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" width="100%" height="100%">
   <head>
-    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Personal</title>
-	 <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
+	 
 <link href="../../js/bootstrap.min.css" rel="stylesheet">
 <?php
 session_start();
-if(!isset($_SESSION['usuario']['id_usuario']) || !strcmp ($_SESSION['tipo'],'ADMIN')==0){	
-	//include("cerrar.php");	
+if(!isset($_SESSION['usuario']['id_usuario']) || !strcmp ($_SESSION['tipo'],'ADMIN')==0){		
 	header("Location: \SistemaDeInventarios\login.php");	
 }
 ?>
@@ -44,7 +43,6 @@ echo $_SESSION['usuario']['nombre']. "";
 		<div class='col-xs-5'>
 			<h3 class='text-right'>		
 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#dataRegister"><i class='glyphicon glyphicon-plus'></i> Agregar</button>
-			<a href="../exportar.php" class="btn btn-default">exportar</a>
 			</h3>
 		</div>
 	  <div class="row">

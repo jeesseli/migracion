@@ -59,8 +59,7 @@ $conexion->close(); //cerramos la conexión
       <div class="modal-body">
 			<div id="datos_ajax"></div>
  <div class="form-group">
-            <label for="descripcion" class="control-label">Descripcion:</label>
-            <input type="text" class="form-control" id="descripcion" name="descripcion" required maxlength="30">
+           
 		  <input type="hidden" class="form-control" id="id" name="id">
 		  </div>
 		   <div class="form-group">

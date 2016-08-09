@@ -63,7 +63,7 @@ $conexion->close(); //cerramos la conexión
 
 		  <div class="form-group">
 			<label for="tipo_equipo" class="control-label">Tipo de Equipo:</label>
-			<select name="tipo_equipo">
+			<select name="tipo_equipo" id="tipo_equipo">
 			   <?php echo $combobit3; ?>
 			 </select>
 		 </div>
@@ -150,7 +150,7 @@ $conexion->close(); //cerramos la conexión
 
 		 <div class="form-group">
 			<label for="propietario" class="control-label">Propietario:</label>
-			<select name="propietario">
+			<select name="propietario" id="propietario">
 			   <?php echo $combobit2; ?>
 			 </select>
 		 </div>

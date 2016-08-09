@@ -100,7 +100,7 @@ ini_set('display_errors', '1');
 					data-toggle="modal" 
 					data-target="#dataDelete"
 					data-id="<?php echo $row['id_resguardos']?>"  ><i class='glyphicon glyphicon-trash'></i> Eliminar</button>
-					<?php echo '<a href="pdf.php?'.$row['id_resguardos'].'" class="btn btn-warning" role="button">Imprimir</a>';?></div>
+					<?php echo '<a href="pdf.php?resguardo='.$row['id_resguardos'].'" class="btn btn-warning" role="button">Imprimir</a>';?></div>
 				  
 				    <td><?php echo $row['Fecha'];?></td>
 				 	<td><?php echo$row['Estado'];?></td>

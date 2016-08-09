@@ -78,7 +78,7 @@ echo $_SESSION['usuario']['nombre']. "";
 						<li>
 							<a href="catalogos/Telefonos/telefono_index.php">
 								<span class="icon">
-									<i aria-hidden="true" class="icon-team"></i>
+									<i aria-hidden="true" class="icon_telephone"></i>
 								</span>
 								<span>Telefono</span> 
 								

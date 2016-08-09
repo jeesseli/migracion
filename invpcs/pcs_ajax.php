@@ -27,7 +27,7 @@ error_reporting(-1);
 		$total_pages = ceil($numrows/$per_page);
 		$reload = 'pcs.php';
 		//consulta principal para recuperar los datos
-		$query = mysqli_query($con,"Select * from inv_pcs ORDER BY  `inv_pcs`.`ID_Equipo` DESC  LIMIT $offset,$per_page");
+		$query = mysqli_query($con,"SELECT inv_pcs. * , equipos.Descripcion_Equipo FROM inv_pcs LEFT JOIN equipos ON inv_pcs.ID_Tipo_Equipo = equipos.ID_Tipo_Equipo  ORDER BY  `inv_pcs`.`ID_Equipo` DESC  LIMIT $offset,$per_page");
 
 		if ($numrows>0){
 			?>
@@ -126,7 +126,7 @@ error_reporting(-1);
 					<button type="button" class="btn-primary" data-toggle="modal"
 					data-target="#dataUpdate"
 					data-id="<?php echo $row['ID_Equipo']?>"
-					data-tipo-equipo="<?php echo $row['ID_Tipo_Equipo']?>"
+					data-tipo_equipo="<?php echo $row['ID_Tipo_Equipo']?>"
 					data-equipo_serie="<?php echo $row['Equipo_Serie']?>"
 					data-equipo_marca="<?php echo $row['Equipo_Marca']?>"
 					data-equipo_modelo="<?php echo $row['Equipo_Modelo']?>"
@@ -168,7 +168,7 @@ error_reporting(-1);
 
 				<td><?php echo $row['Equipo_Serie'];?></td>
 			
-					<td><?php echo $row['ID_Tipo_Equipo'];?></td>
+					<td><?php echo $row['Descripcion_Equipo'];?></td>
 					<td><?php echo $row['Equipo_Marca'];?></td>
 					<td><?php echo $row['Equipo_Modelo'];?></td>
 					<td><?php echo $row['Equipo_numinv'];?></td>
